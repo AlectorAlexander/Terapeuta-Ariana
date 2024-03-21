@@ -1,0 +1,23 @@
+{
+  "name": "Terapeuta-Ariana",
+  "version": "1.0.0",
+  "scripts": {
+    "install:front": "cd frontend && npm install",
+    "install:back": "cd backend && npm install",
+    "install": "npm run install:back && npm run install:front",
+    "build:front": "cd frontend && npm run build",
+    "build:back": "cd backend && npm run build",
+    "build": "npm run build:back && npm run build:front",
+    "start:front": "cd frontend && npm run start",
+    "start:back": "cd backend && npm run start",
+    "start": "npm run start:back & npm run start:front",
+    "dev:front": "cd frontend && npm run dev",
+    "dev:back": "cd backend && npm run dev",
+    "dev": "npm run dev:back & npm run dev:front",
+    "lint:front": "cd frontend && npm run lint",
+    "lint:back": "cd backend && npm run lint",
+    "lint": "npm run lint:back && npm run lint:front"
+  },
+  "private": true
+}
+
