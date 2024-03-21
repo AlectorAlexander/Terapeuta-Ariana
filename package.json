@@ -10,10 +10,10 @@
     "build": "npm run build:back && npm run build:front",
     "start:front": "cd front && npm run start",
     "start:back": "cd back && npm run start",
-    "start": "npm run start:back & npm run start:front",
+    "start": "npm run start:back && npm run start:front",
     "dev:front": "cd front && npm run dev",
     "dev:back": "cd back && npm run dev",
-    "dev": "npm run dev:back & npm run dev:front",
+    "dev": "npm run dev:back && npm run dev:front",
     "lint:front": "cd front && npm run lint",
     "lint:back": "cd back && npm run lint",
     "lint": "npm run lint:back && npm run lint:front"
