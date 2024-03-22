@@ -10,8 +10,8 @@ async function bootstrap() {
     console.log('Database connection established!');
 
     const app = await NestFactory.create(AppModule);
-    app.use(bodyParser.json({ limit: '25mb' }));
-    app.use(bodyParser.urlencoded({ limit: '25mb', extended: true }));
+    app.use(bodyParser.json({ limit: '50mb' }));
+    app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
     await app.listen(process.env.PORT);
     console.log(`Application started on port ${process.env.PORT}`);
   } catch (error) {
