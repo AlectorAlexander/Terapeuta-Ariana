@@ -9,7 +9,7 @@
     "build:back": "cd back && node --max-old-space-size=2048 node_modules/@nestjs/cli/bin/nest.js build",
     "build": "npm run build:back && npm run build:front",
     "start:front": "cd front && npm run start",
-    "start:back": "cd back && npm run start",
+    "start:back": "cd back && node --max-old-space-size=2048 dist/main",
     "start": "npm run start:back && npm run start:front",
     "dev:front": "cd front && npm run dev",
     "dev:back": "cd back && npm run dev",
