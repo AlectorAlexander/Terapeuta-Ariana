@@ -1,0 +1,70 @@
+.mainContainer {
+    display: flex; 
+    justify-content: center; 
+    max-width: 100vw;
+}
+
+.container {
+    max-width: 860px;
+     display: flex; 
+     justify-content: center; 
+     flex-direction: column;
+}
+
+.container h1 {
+    text-align: center;
+}
+
+.adminIcons {
+    position: fixed; /* Fixa a posição do ícone na tela */
+    bottom: 40px; /* Define a distância do ícone em relação ao fundo da tela */
+    right: 50px; /* Define a distância do ícone em relação à direita da tela */
+}
+
+.icon {
+    background-color: #872080; /* Cor de fundo do ícone */
+    color: #fff; /* Cor do ícone */
+    border-radius: 50%; /* Para torná-lo circular, se desejar */
+    width: 50px; /* Largura do ícone */
+    height: 50px; /* Altura do ícone */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: width 0.3s, height 0.3s; 
+    margin: 15px 0;
+}
+
+.icon span {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.icon svg {
+    width: 80%;
+     height: 80%;
+}
+
+.icon:hover {
+    width: 60px ;
+    height: 60px ;
+}
+
+@media only screen and (max-width:  852px) {
+    .container {
+        padding: 0 150px;
+    }
+  }
+
+  @media only screen and (max-width:  600px) {
+    .container {
+        padding: 0 250px;
+    }
+  }
+
+  @media only screen and (max-width: 360px) {
+    .container {
+        padding: 0 280px;
+    }
+  }

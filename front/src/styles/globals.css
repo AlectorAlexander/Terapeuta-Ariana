@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&display=swap');
+
+/* Reset CSS */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.rdw-editor-main {
+  min-height: 50vh !important;
+}
+
+table, th, td {
+  border: none !important;
+  border-collapse: collapse;
+}
+
+th {
+  border-bottom: none !important;
+}
+
+body, body * {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+html, body, #__next {
+  height: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding:0;
+  width: 100%;
+}
+
+
+.carousel-control-prev, .carousel-control-next {
+  z-index: 1; 
+  display: flex;
+  align-items: start !important;
+}
+
+.carousel-indicators {
+  display: none !important;
+}
+
+/* Header */
+.header {
+  padding: 1rem;
+  color: white;
+  position: fixed !important;
+  background-color: white;
+  width: 100vw;
+  z-index: 999;
+  /* margin-bottom: 20px !important; */
+}
+
+.content {
+  margin-top: 160px !important;
+}
+
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  overflow: auto;
+}
+
+/* Footer */
+.footer {
+  background: #333;
+  padding: 1rem;
+  color: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .header, .footer {
+    padding: 0.5rem;
+  }
+}
+
+#paper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height:100%;
+  width: 100%;
+ }
+ 
+ main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+ }
+
+ .slick-dots {
+  display: none !important;
+}
+
+
+ #__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+

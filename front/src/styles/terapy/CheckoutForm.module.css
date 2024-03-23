@@ -1,0 +1,19 @@
+.successIcon {
+    min-width: 100%;
+    max-width: 100vw;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 143px;
+    background-color: green;
+    flex-direction: column;
+    color: white;
+    font-size: 20px;
+}
+
+.successIcon svg {
+    width: 200px;
+    height: 200px;
+    color: white;
+}

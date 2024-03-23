@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title, .editor, .buttons, .trueEditor  {
+    margin: 15px 0;
+}
+
+.trueEditor {
+    border: 1px solid black;
+}
+
+.buttons {
+    background-color: blueviolet;
+    display: flex;
+    justify-content: center;
+}
+
+.textEditor * {
+    height: 100vh;
+}
+
+.buttons * {
+    width: 25px;
+}
+
+.editor {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin: 30px 0;
+}
+
+.editor .rdw-editor-main {
+    height: 100vh;
+    border: 1px solid black;
+}
+
+.title {
+    width: 300px;
+    text-align: center;
+    font-size: 30px;
+}

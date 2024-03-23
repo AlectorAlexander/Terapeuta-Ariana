@@ -1,0 +1,31 @@
+.biggestContainer {
+  display: flex;
+  align-items: center;
+  color: violet;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.blogsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100vw;
+}
+
+.a {
+  color:blueviolet;
+
+}
+
+.a:hover {
+  color:rgb(62, 29, 94);
+
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

@@ -1,0 +1,7 @@
+.forgotPassword {
+    text-decoration:underline;
+    color: blue;
+}
+.forgotPassword:hover {
+        cursor: pointer;
+}

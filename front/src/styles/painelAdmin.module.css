@@ -1,0 +1,16 @@
+.tHead {
+    height: 122px;
+}
+
+.row {
+    text-align: center;
+    width: 140px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 190px;
+    margin: 0 15px 15px 0;
+}

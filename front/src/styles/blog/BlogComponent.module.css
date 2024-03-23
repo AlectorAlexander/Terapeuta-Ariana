@@ -1,0 +1,24 @@
+.icon {
+    display: flex;
+    justify-content: center;
+}
+
+.icon svg {
+    border-radius: 20px;
+    padding: 15px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(-45deg, #61067afa, #61067a, #61067abd, #480251);
+    color: white;
+    transition: background 0.3s ease-in-out, padding 0.3s ease-in-out; 
+}
+
+.icon svg:hover {
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 10px;
+    background: linear-gradient(-45deg, #1a0c1efa, #61067a, #61067abd, #492e4d);
+    color: white;
+}
+
+

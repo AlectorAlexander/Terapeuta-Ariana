@@ -1,0 +1,53 @@
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+
+$bg-color: #d0e1d0;
+$text-color1: #284b2c;
+$text-color2: #26959d;
+$text-color3: #12565bdf;
+
+  .title {
+    margin-top: 10px;
+    font-size: 50px;
+    background: linear-gradient(45deg, $text-color1 40%, $text-color2 60%, $text-color3 20%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    filter: drop-shadow(0px 3px 8px rgba(0,0,0, 0.5));
+    text-outline: 1px solid black;
+    transform: rotate(-117deg);
+  }
+
+
+  .container {
+    font-family: 'Lobster', cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .form {
+    margin: 1rem;
+    margin-top: 2rem;
+    height: 72vh;
+    margin-top: 20vh;
+    margin-bottom: 21vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .button {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto; 
+    display: block;
+    z-index: 33;
+    max-width: 90px;
+  }
+
+  form .button:hover {
+    background-color: green !important;;
+    color: white
+  }
+  

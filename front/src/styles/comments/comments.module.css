@@ -1,0 +1,42 @@
+.comments {
+    height: 95vh;
+    background: linear-gradient(-45deg, #ebe6e6f8, #dcbbf399, #f0bdbdbe,#61067a67,#61067a67, #61067a67, #480251);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.add svg {
+    color: white;
+    border: 1px solid white;
+}
+
+.carousel {
+    max-width: 100vw;
+    width: 400px;
+    min-width: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.testimonial {
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    max-width: 400px;
+    height: 300px;
+    align-items: center;
+}
+
+.testimonial h1 {
+    text-align: center;
+    font-style: italic;
+}
+
+.testimonial p {
+    text-align:right;
+    font-weight: 900;
+    font-size: 17px;
+}

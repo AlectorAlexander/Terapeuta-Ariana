@@ -1,0 +1,35 @@
+.Card {
+    width: 266px;
+    height: 586px;
+    border-radius: 20px;
+    margin: 20px
+}
+
+.CardBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 !important;
+}
+
+.CardImg {
+    border-radius: 20px 20px 0 0;
+    width: 266px;
+    height: 150px;
+}
+
+.Button {
+    background-color: rgba(0, 0, 0, 0);
+    border: rgba(0, 0, 0, 0);
+    color: black;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.Button:hover {
+    color: rgb(17, 39, 20);
+    background-color: rgba(0, 0, 0, 0);
+    border: rgba(0, 0, 0, 0);
+    font-weight: 900;
+}

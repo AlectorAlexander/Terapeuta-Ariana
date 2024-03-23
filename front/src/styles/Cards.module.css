@@ -1,0 +1,24 @@
+.Card {
+    width: 231px;
+    height: 300px;
+    border-radius: 20px;
+    margin: 20px
+}
+
+.CardBody {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.CardImg {
+    border-radius: 30px;
+    width: 230px;
+    height: 150px;
+}
+
+.Button {
+    background-color: black;
+}

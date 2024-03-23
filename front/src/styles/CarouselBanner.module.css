@@ -1,0 +1,186 @@
+.ContainerCarouselBanner {
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+    height: 650px;
+    margin-top: 60px;
+  }
+  
+  .carouselImage {
+    width: 100vw;
+    max-height: 650px; /* Isso permitirá que a imagem se ajuste à largura do contêiner */
+    object-fit: cover; /* Isso fará com que a imagem cubra o espaço disponível */
+  }
+  
+  .textFormatting {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white !important;
+    text-align: center;
+    z-index: 10; /* Garantir que o texto fique acima da imagem */
+  }
+  
+  .textFormatting h1 {
+    font-size: 2.5em; /* ou o tamanho que desejar */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Sombra para destacar o texto sobre a imagem */
+  }
+  
+  .textFormatting p {
+    font-size: 1.2em; /* ou o tamanho que desejar */
+    margin-top: 0.5em;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  }
+  
+  /* Sobreposição de cor no banner para legibilidade */
+  .ContainerCarouselBanner::before {
+    height: 650px;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Ajuste a cor e a opacidade conforme necessário */
+    z-index: 5; /* Abaixo do texto, acima da imagem */
+  }
+  
+  @media screen and (min-width: 722px) and (max-width: 1039px) {
+    .ContainerCarouselBanner::before {
+      height: 410px;
+    }  
+
+    .ContainerCarouselBanner {
+      height: 410px;
+
+    }
+
+  }
+
+
+@media screen and (max-width: 721px) {
+
+    .textFormatting {
+    position: absolute;
+    top: 70px;
+}
+
+    .textpFormatting {
+    position: absolute;
+    top: 65px;
+}
+
+.ContainerCarouselBanner::before {
+  height: 300px;
+}
+.ContainerCarouselBanner {
+    height: 300px;
+}
+
+}
+
+@media screen and (max-width: 579px) {
+    .ContainerCarouselBanner::before {
+        height: 230px;
+      }  
+
+    .ContainerCarouselBanner {
+        height: 230px;
+      }
+    
+    .textFormatting {
+        position: absolute;
+        top: 50%;
+        left: 50%;;
+        right: 0;
+    }
+
+    .textFormatting p {
+        font-size: 18px;
+    }
+
+    .textpFormatting {
+        position: absolute;
+        top: 60px;
+        left: 50%;;
+        right: 0;
+    }
+}
+
+@media screen and (max-width: 424px) {
+    .ContainerCarouselBanner::before {
+        background: rgba(0, 0, 0, 0.5); /* Ajuste a cor e a opacidade conforme necessário */
+        z-index: 5; /* Abaixo do texto, acima da imagem */
+        height: 200px;
+      }  
+
+      .ContainerCarouselBanner {
+        height: 200px;
+
+      }
+    
+    .textFormatting {
+    letter-spacing: 1px;
+        position: absolute;
+        top: 73px;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        left: 189px;
+        right: 0;
+        text-shadow: -1px 1px 0 #0b4312,
+            1px 1px 0 #61170d,
+           1px -1px 0 #1fa8a6,
+          -1px -1px 0 #363406;
+    }
+
+    .textFormatting p {
+        font-size: 20px;
+    }
+
+    .textpFormatting {
+        font-size: 12px;
+        position: absolute;
+        
+    }
+
+
+}
+
+
+@media screen and (max-width: 356px) {
+    .ContainerCarouselBanner::before {
+        height: 180px;
+      }  
+
+      .ContainerCarouselBanner {
+        height: 180px;
+
+      }
+    
+    .textFormatting {
+    letter-spacing: 1px;
+        position: absolute;
+        top: 73px;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        left: 189px;
+        right: 0;
+        text-shadow: -1px 1px 0 #0b4312,
+            1px 1px 0 #61170d,
+           1px -1px 0 #1fa8a6,
+          -1px -1px 0 #363406;
+    }
+
+    .textFormatting p {
+        font-size: 14px;
+    }
+
+    .textpFormatting {
+        font-size: 12px;
+        position: absolute;
+        
+    }
+
+
+}
+
+

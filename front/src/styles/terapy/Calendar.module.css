@@ -1,0 +1,96 @@
+.calendar, .calendarComplete, .calendar th, .calendar td {
+ background-color: rgb(0, 76, 255);   
+ color: white;
+ font-family: 'Courier New', Courier, monospace;
+ z-index: 2;
+}
+
+.calendarComplete{
+    min-height: 371px;
+}
+
+.nonClickable {
+  color: rgb(190, 186, 186);
+}
+
+
+
+.day:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border-radius: 50px;
+}
+
+.day {
+    font-family:unset;
+    width: 100%;
+    line-height: 20px;
+}
+
+.appear {
+    position: absolute;
+    left: -10%;
+    right: 0;
+    z-index: 10; 
+    height: 100px;
+    text-align: center;
+    width: 120%; 
+    display: flex;
+    color: black;
+     padding: 0 90px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+  }
+  
+
+
+.appear li {
+  margin:  0 5px;
+  color: white;
+  padding: 2px;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 12px;
+}
+
+.appear li:hover {
+    cursor: pointer;
+    background-color: white;
+    color: rgb(0, 76, 255) !important;
+  }
+
+.selected {
+    background-color: white;
+    color: rgb(0, 76, 255) !important;
+  }
+
+.marginTopMagic {
+    height: 130px;
+  }
+
+
+@media (max-width: 791px) {
+  .marginTopMagic {
+          height: 210px;
+        }
+  
+  .appear {
+    padding: 0 50px;
+    height: 190px;
+  }
+  }
+
+@media (max-width: 500px) {
+.marginTopMagic {
+        height: 210px;
+      }
+
+.appear {
+  padding: 0 35px;
+  height: 190px;
+}
+}
