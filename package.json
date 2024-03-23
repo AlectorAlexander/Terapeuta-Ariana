@@ -2,6 +2,8 @@
   "name": "Terapeuta-Ariana",
   "version": "1.0.0",
   "scripts": {
+    "kill:ports": "fkill --force :8080 :3001",
+    "prestart": "npm run kill:ports",
     "install:front": "cd front && npm install",
     "install:back": "cd back && npm install",
     "install": "npm run install:back && npm run install:front",
