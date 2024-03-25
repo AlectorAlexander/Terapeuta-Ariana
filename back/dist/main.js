@@ -12,8 +12,8 @@ async function bootstrap() {
         const app = await core_1.NestFactory.create(main_module_1.AppModule);
         app.use(bodyParser.json({ limit: '50mb' }));
         app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-        await app.listen(process.env.PORT);
-        console.log(`Application started on port ${process.env.PORT}`);
+        await app.listen(process.env.BPORT);
+        console.log(`Application started on port ${process.env.BPORT}`);
     }
     catch (error) {
         console.error('Error while starting the application', error);
