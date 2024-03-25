@@ -1,5 +1,5 @@
 import axios from 'axios';
-const api_base = process.env.NEXT_PUBLIC_API_URL;
+const api_base = "http://localhost:3001";
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 // src/pages/api/blog/delete.js

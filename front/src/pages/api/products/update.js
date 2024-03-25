@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getUpdatedProducts, formatTheApiProductsToCompare } from '@/services/compareProducts';
 import stripe from '@/services/stripe'; // Ajuste o caminho conforme necessário
 
-const api_base = process.env.NEXT_PUBLIC_API_URL;
+const api_base = "http://localhost:3001";
 
 export default async function updatePostById(req, res) {
   try {
