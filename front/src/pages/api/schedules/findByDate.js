@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import axios from 'axios';
 
-const api_base = "http://localhost:3001";
+const api_base = `http://localhost:${process.env.NEXT_PUBLIC_PORT}`;
 
 export default async function findByDate(req, res) {
   try {

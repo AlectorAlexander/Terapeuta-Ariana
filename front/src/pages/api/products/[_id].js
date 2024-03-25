@@ -1,5 +1,5 @@
 import axios from 'axios';
-const api_base = "http://localhost:3001";
+const api_base = `http://localhost:${process.env.NEXT_PUBLIC_PORT}`;
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 export default async function getProductById(req, res) {

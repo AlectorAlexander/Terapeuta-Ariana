@@ -12,8 +12,8 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.use(bodyParser.json({ limit: '50mb' }));
     app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-    await app.listen(process.env.PORT_WITH_A_DIFFERENT_NAME_JUSTODONTASK);
-    console.log(`Application started on port ${process.env.PORT_WITH_A_DIFFERENT_NAME_JUSTODONTASK}`);
+    await app.listen(process.env.PORT);
+    console.log(`Application started on port ${process.env.PORT}`);
   } catch (error) {
     console.error('Error while starting the application', error);
   }

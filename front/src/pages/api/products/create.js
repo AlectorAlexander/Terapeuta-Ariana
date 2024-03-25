@@ -2,7 +2,7 @@ import axios from 'axios';
 import { formatTheApiProductsToCompare, formatTheApiProductsToCreate } from '@/services/compareProducts';
 import stripe from '@/services/stripe'; // Ajuste o caminho conforme necessário
 
-const api_base = "http://localhost:3001";
+const api_base = `http://localhost:${process.env.NEXT_PUBLIC_PORT}`;
 
 export default async function create(req, res) {
   try {

@@ -4,7 +4,7 @@ import stripe from '@/services/stripe';
 import axios from 'axios'; 
 
 
-const api_base = "http://localhost:3001";
+const api_base = `http://localhost:${process.env.NEXT_PUBLIC_PORT}`;
 
 export default async function getProducts(req, res) {
   try {
