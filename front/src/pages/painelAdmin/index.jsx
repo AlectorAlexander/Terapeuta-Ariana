@@ -7,6 +7,7 @@ import { extrairDescricao, formatSlot } from '@/services/painelAdminServices';
 import Loading from '@/components/Loading';
 import styles from '@/styles/painelAdmin.module.css';
 import ArianaContext from '@/context/ArianaContext';
+import { compareAsc, compareDesc } from 'date-fns';
 
 const SchedulingList = () => {
   const [schedulings, setSchedulings] = useState([]);
@@ -21,12 +22,14 @@ const SchedulingList = () => {
 
   const [filterClientName, setFilterClientName] = useState('');
   const [filterService, setFilterService] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
   const welcomeToModal = (schedule, sName) => {
     setSessioName(sName);
     setSelectedSchedule(schedule);
     setIsModalOpen(true);
   }; 
+ 
 
   const onClose = () => {
     setIsModalOpen(false);
@@ -89,14 +92,53 @@ const SchedulingList = () => {
     }
   };
 
-  const getFilteredSchedulings = useMemo(() => {
-    return schedulings.filter((scheduling, i) => {
-      const isClientMatch = !filterClientName || (client[i]?.name?.toLowerCase().includes(filterClientName.toLowerCase()));
-      const sessionDescription = extrairDescricao(sessions[i]?.date); // Using the same function as the display logic
-      const isServiceMatch = !filterService || (sessionDescription?.toLowerCase().includes(filterService.toLowerCase()));
+  const combinedData = useMemo(() => {
+    return schedulings.map((scheduling, index) => ({
+      scheduling,
+      payment: payments[index],
+      session: sessions[index],
+      client: client[index]
+    }));
+  }, [schedulings, payments, sessions, client]);
+
+  const filteredAndSortedData = useMemo(() => {
+    const filteredData = combinedData.filter(({ client, session }) => {
+      const isClientMatch = !filterClientName || client.name.toLowerCase().includes(filterClientName.toLowerCase());
+      const sessionDescription = extrairDescricao(session.date);
+      const isServiceMatch = !filterService || sessionDescription.toLowerCase().includes(filterService.toLowerCase());
       return isClientMatch && isServiceMatch;
     });
-  }, [schedulings, client, filterClientName, filterService, sessions]);
+
+    if (!sortConfig.key) {return filteredData;}
+
+    return filteredData.sort((a, b) => {
+      const valueA = sortConfig.key === 'price' ? a.payment[sortConfig.key] : new Date(a.scheduling[sortConfig.key]);
+      const valueB = sortConfig.key === 'price' ? b.payment[sortConfig.key] : new Date(b.scheduling[sortConfig.key]);
+
+      return sortConfig.direction === 'ascending' ? compareAsc(valueA, valueB) : compareDesc(valueA, valueB);
+    });
+  }, [combinedData, filterClientName, filterService, sortConfig]);
+
+
+  // Define a function to handle sorting based on the selected key (column header).
+  const requestSort = (key) => {
+
+    
+    let direction = 'ascending';
+    // If the selected key is already the sorting key and the direction is ascending,
+    // change the direction to descending, otherwise set it to ascending.
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+
+
+    // Update the sortConfig state with the new key and direction.
+    setSortConfig({ key, direction });
+  };
+
+
+  
+
 
   const onScheduleUpdated = async (updatedSchedule) => {
     setSchedulings(prevSchedulings => {
@@ -118,6 +160,7 @@ const SchedulingList = () => {
     const token = localStorage.getItem('authToken');
     fetchSchedulings(token);
   }, []);
+
 
   return isAdmin ? (
     <div className='d-flex justify-content-center align-items-center w-100 flex-column mt-5'>
@@ -146,22 +189,22 @@ const SchedulingList = () => {
           </caption>
         ) : (
           <>
-            <TableHead className={styles.tHead}>
-              <TableRow className={styles.tHeadRow} >
-                <TableCell className={styles.row}>Data</TableCell>
-                <TableCell className={styles.row}>Cliente</TableCell>
-                <TableCell className={styles.row}>Serviço</TableCell>
-                <TableCell className={styles.row}>Valor da Sessão</TableCell>
-                <TableCell className={styles.row}>Ações</TableCell>
+            <TableHead>
+              <TableRow>
+                <TableCell onClick={() => requestSort('start_date')}>Data</TableCell>
+                <TableCell>Cliente</TableCell>
+                <TableCell>Serviço</TableCell>
+                <TableCell onClick={() => requestSort('price')}>Valor da Sessão</TableCell>
+                <TableCell>Ações</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {getFilteredSchedulings.map((scheduling, i) => (
-                <TableRow key={i}>
+              {filteredAndSortedData.map(({ scheduling, client, session, payment }, i) => (
+                <TableRow key={scheduling._id}>
                   <TableCell>{formatSlot(scheduling.start_date, scheduling.end_date)}</TableCell>
-                  <TableCell>{client[i].name}</TableCell>
-                  <TableCell>{extrairDescricao(sessions[i].date)}</TableCell>
-                  <TableCell>{payments[i].price}</TableCell>
+                  <TableCell>{client.name}</TableCell>
+                  <TableCell>{extrairDescricao(session.date)}</TableCell>
+                  <TableCell>{payment.price}</TableCell>
                   <TableCell>
                     <Button className={styles.buttons} onClick={() => welcomeToModal(scheduling, extrairDescricao(sessions[i].date))}>Reagendar</Button>
                     <Button variant='danger' className={styles.buttons} onClick={() => deletar(payments[i], sessions[i], scheduling)}>Cancelar e Reembolsar</Button>
@@ -189,3 +232,4 @@ const SchedulingList = () => {
 };
 
 export default SchedulingList;
+
