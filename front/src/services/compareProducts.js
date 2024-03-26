@@ -51,7 +51,6 @@ export const updateStripeDescriptionProducts = async (updates) => {
       });
       console.log(`Product ${stripeProduct.name} updated.`);
     } catch (error) {
-      console.log({stripeProduct}); 
       console.error(`Error updating product ${stripeProduct.name}:`, error);
     }
   });
@@ -153,7 +152,6 @@ const synchronizeProducts = (stripeProducts, formattedAPIProducts) => {
 export const formatTheApiProductsToCompare = (products) => {
   return products.map(p => {
     const { title, price, image, description, stripe_id, _id } = p;
-    console.log(stripe_id);
     return {
       id: stripe_id,
       _id,
@@ -182,7 +180,6 @@ export const formatTheApiProductsToPayment = (products) => {
 };
 
 export const formatTheStripeProductsToCompare = (ps) => {
-  console.log({formatTheStripeProductsFuncion: ps});
   return ps.map(p => {
     const { name, default_price, images, description } = p;
     return {
