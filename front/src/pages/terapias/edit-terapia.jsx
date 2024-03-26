@@ -31,6 +31,7 @@ const terapiasEditator = () => {
   };
 
   useEffect(() => {
+    console.log({terapiaToEdition});
     if (terapiaToEdition) {
       setTitle(terapiaToEdition.title);
       setImage(terapiaToEdition.image);
@@ -116,14 +117,18 @@ const terapiasEditator = () => {
           onChange={(e) => setDuracao(e.target.value)}
           placeholder="(1hr, 25min, 1hr20min)"
         />
-        <input
-          type="number"
-          className={styles.title}
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="Preço"
-        />
-        <div className={styles.editor}>
+        { terapiaToEdition ? <h1>
+          Preço: {terapiaToEdition.price}
+        </h1>
+          :
+          <input
+            type="number"
+            className={styles.title}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder="Preço"
+          />
+        }        <div className={styles.editor}>
           <DynamicEditor
             editorState={editorState}
             onEditorStateChange={setEditorState}
