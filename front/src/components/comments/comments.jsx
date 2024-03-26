@@ -62,7 +62,6 @@ export default function Testimonials() {
     axios.get('/api/comments/readTestimonials')
       .then(response => {
         setTestimonials(response.data);
-        console.log(response.data);
       })
       .catch(error => {
         console.error('Error fetching testimonials:', error);

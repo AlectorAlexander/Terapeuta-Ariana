@@ -27,7 +27,7 @@ function Terapias() {
   ];
 
   useEffect(() => {
-    console.log(data);
+    console.log({terapiasIndexPage30: data});
 
   }, [data]);
 

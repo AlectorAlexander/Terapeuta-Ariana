@@ -81,7 +81,7 @@ export function CheckoutForm({ clientSecret }) {
           await sendPaymentRequest(data).then( async ({sessionData, paymentData}) => {
             const emailMessage = sessionData.date;
             sendEmailToAriana(emailMessage);
-            console.log(paymentData);
+            console.log({paymentData});
             await updatePaymentIntent(paymentData._id, paymentIntent.id);
           });
           setSuccessCase(true);
