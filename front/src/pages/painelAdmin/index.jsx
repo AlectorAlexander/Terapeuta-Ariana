@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { Button } from 'react-bootstrap';
@@ -6,6 +6,7 @@ import EditScheduleModal from '@/components/painelAdmin/editBookingModal';
 import { extrairDescricao, formatSlot } from '@/services/painelAdminServices';
 import Loading from '@/components/Loading';
 import styles from '@/styles/painelAdmin.module.css';
+import ArianaContext from '@/context/ArianaContext';
 
 const SchedulingList = () => {
   const [schedulings, setSchedulings] = useState([]);
@@ -16,6 +17,8 @@ const SchedulingList = () => {
   const [scheduleChoosen, setSelectedSchedule] = useState(null);
   const [sessionName, setSessioName] = useState('');
   const [loading, setLoading] = useState(true);
+  const { isAdmin } = useContext(ArianaContext);
+  
 
   const welcomeToModal = (schedule, sName) => {
     setSessioName(sName);
@@ -105,43 +108,59 @@ const SchedulingList = () => {
     fetchSchedulings(token);
   }, []);
 
-  return (
-    <Table>
-      <EditScheduleModal backdrop='static' isOpen={isModalOpen} onClose={onClose} scheduleChoosen={scheduleChoosen} load={loading} sessionName={sessionName} onScheduleUpdated={onScheduleUpdated} reagendarData={{ payments, sessions }} />
+  if (isAdmin){
+    return (
+      <Table>
+        <EditScheduleModal backdrop='static' isOpen={isModalOpen} onClose={onClose} scheduleChoosen={scheduleChoosen} load={loading} sessionName={sessionName} onScheduleUpdated={onScheduleUpdated} reagendarData={{ payments, sessions }} />
 
-      {loading ? (
-        <caption style={{ textAlign: "center" }}>
-          <Loading />
-        </caption>
-      ) : (
-        <>
-          <TableHead className={styles.tHead}>
-            <TableRow className={styles.tHeadRow} >
-              <TableCell className={styles.row}>Data</TableCell>
-              <TableCell className={styles.row}>Cliente</TableCell>
-              <TableCell className={styles.row}>Serviço</TableCell>
-              <TableCell className={styles.row}>Valor da Sessão</TableCell>
-              <TableCell className={styles.row}>Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {schedulings.map((scheduling, i) => (
-              <TableRow key={i}>
-                <TableCell>{formatSlot(scheduling.start_date, scheduling.end_date)}</TableCell>
-                <TableCell>{client[i].name}</TableCell>
-                <TableCell>{extrairDescricao(sessions[i].date)}</TableCell>
-                <TableCell>{payments[i].price}</TableCell>
-                <TableCell>
-                  <Button className={styles.buttons} onClick={() => welcomeToModal(scheduling, extrairDescricao(sessions[i].date))}>Reagendar</Button>
-                  <Button variant='danger' className={styles.buttons} onClick={() => deletar(payments[i], sessions[i], scheduling)}>Deletar e Reembolsar</Button>
-                </TableCell>
+        {loading ? (
+          <caption style={{ textAlign: "center" }}>
+            <Loading />
+          </caption>
+        ) : (
+          <>
+            <TableHead className={styles.tHead}>
+              <TableRow className={styles.tHeadRow} >
+                <TableCell className={styles.row}>Data</TableCell>
+                <TableCell className={styles.row}>Cliente</TableCell>
+                <TableCell className={styles.row}>Serviço</TableCell>
+                <TableCell className={styles.row}>Valor da Sessão</TableCell>
+                <TableCell className={styles.row}>Ações</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </>
-      )}
-    </Table>
-  );
+            </TableHead>
+            <TableBody>
+              {schedulings.map((scheduling, i) => (
+                <TableRow key={i}>
+                  <TableCell>{formatSlot(scheduling.start_date, scheduling.end_date)}</TableCell>
+                  <TableCell>{client[i].name}</TableCell>
+                  <TableCell>{extrairDescricao(sessions[i].date)}</TableCell>
+                  <TableCell>{payments[i].price}</TableCell>
+                  <TableCell>
+                    <Button className={styles.buttons} onClick={() => welcomeToModal(scheduling, extrairDescricao(sessions[i].date))}>Reagendar</Button>
+                    <Button variant='danger' className={styles.buttons} onClick={() => deletar(payments[i], sessions[i], scheduling)}>Cancelar e Reembolsar</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </>
+        )}
+      </Table>
+    );}
+  else {
+    return ( 
+      <div className='w-100 h-100 mt-5 d-flex flex-column align-items-center'>
+        <h1 className='mt-5'>
+      ACESSO
+        </h1>
+        <h1 className='mt-5'>
+      NÃO
+        </h1>
+        <h1 className='mt-5'>
+      AUTORIZADO
+        </h1>
+      </div>
+    );
+  }
 };
 
 export default SchedulingList;
