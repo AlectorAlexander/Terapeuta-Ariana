@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 import axios from 'axios';
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Table, TableHead, TableRow, TableCell, TableBody, TextField } from '@mui/material';
 import { Button } from 'react-bootstrap';
 import EditScheduleModal from '@/components/painelAdmin/editBookingModal';
 import { extrairDescricao, formatSlot } from '@/services/painelAdminServices';
@@ -18,7 +18,9 @@ const SchedulingList = () => {
   const [sessionName, setSessioName] = useState('');
   const [loading, setLoading] = useState(true);
   const { isAdmin } = useContext(ArianaContext);
-  
+
+  const [filterClientName, setFilterClientName] = useState('');
+  const [filterService, setFilterService] = useState('');
 
   const welcomeToModal = (schedule, sName) => {
     setSessioName(sName);
@@ -87,6 +89,15 @@ const SchedulingList = () => {
     }
   };
 
+  const getFilteredSchedulings = useMemo(() => {
+    return schedulings.filter((scheduling, i) => {
+      const isClientMatch = !filterClientName || (client[i]?.name?.toLowerCase().includes(filterClientName.toLowerCase()));
+      const sessionDescription = extrairDescricao(sessions[i]?.date); // Using the same function as the display logic
+      const isServiceMatch = !filterService || (sessionDescription?.toLowerCase().includes(filterService.toLowerCase()));
+      return isClientMatch && isServiceMatch;
+    });
+  }, [schedulings, client, filterClientName, filterService, sessions]);
+
   const onScheduleUpdated = async (updatedSchedule) => {
     setSchedulings(prevSchedulings => {
       return prevSchedulings.map((schedulings) => {
@@ -108,11 +119,27 @@ const SchedulingList = () => {
     fetchSchedulings(token);
   }, []);
 
-  if (isAdmin){
-    return (
+  return isAdmin ? (
+    <div className='d-flex justify-content-center align-items-center w-100 flex-column mt-5'>
+      <div className='d-flex'>
+        <TextField
+          className='m-3 w-100'
+          label="Nome do cliente"
+          value={filterClientName}
+          onChange={(e) => setFilterClientName(e.target.value)}
+          margin="normal"
+        />
+        <TextField
+          className='m-3 w-100'
+          label="Serviço"
+          value={filterService}
+          onChange={(e) => setFilterService(e.target.value)}
+          margin="normal"
+        />
+      </div>
       <Table>
         <EditScheduleModal backdrop='static' isOpen={isModalOpen} onClose={onClose} scheduleChoosen={scheduleChoosen} load={loading} sessionName={sessionName} onScheduleUpdated={onScheduleUpdated} reagendarData={{ payments, sessions }} />
-
+     
         {loading ? (
           <caption style={{ textAlign: "center" }}>
             <Loading />
@@ -129,7 +156,7 @@ const SchedulingList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {schedulings.map((scheduling, i) => (
+              {getFilteredSchedulings.map((scheduling, i) => (
                 <TableRow key={i}>
                   <TableCell>{formatSlot(scheduling.start_date, scheduling.end_date)}</TableCell>
                   <TableCell>{client[i].name}</TableCell>
@@ -145,22 +172,20 @@ const SchedulingList = () => {
           </>
         )}
       </Table>
-    );}
-  else {
-    return ( 
-      <div className='w-100 h-100 mt-5 d-flex flex-column align-items-center'>
-        <h1 className='mt-5'>
-      ACESSO
-        </h1>
-        <h1 className='mt-5'>
-      NÃO
-        </h1>
-        <h1 className='mt-5'>
-      AUTORIZADO
-        </h1>
-      </div>
-    );
-  }
+    </div>
+  ) : (
+    <div className='w-100 h-100 mt-5 d-flex flex-column align-items-center'>
+      <h1 className='mt-5'>
+        ACESSO
+      </h1>
+      <h1 className='mt-5'>
+        NÃO
+      </h1>
+      <h1 className='mt-5'>
+        AUTORIZADO
+      </h1>
+    </div>
+  );
 };
 
 export default SchedulingList;
