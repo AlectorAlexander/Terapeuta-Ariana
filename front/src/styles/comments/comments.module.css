@@ -1,6 +1,6 @@
 .comments {
     height: 95vh;
-    background: linear-gradient(-45deg, #ebe6e6f8, #dcbbf399, #f0bdbdbe,#61067a67,#61067a67, #61067a67, #480251);
+    background: linear-gradient(#e9f0e6,#dddfd4, #e0e1cf);
     display: flex;
     justify-content: center;
     align-items: center;

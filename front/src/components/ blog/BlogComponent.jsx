@@ -26,7 +26,6 @@ function BlogComponent() {
 
   return (
     <div>
-      <h1>Blog</h1>
       {isAdmin ? renderToAdmin() : null}
     </div>
   );

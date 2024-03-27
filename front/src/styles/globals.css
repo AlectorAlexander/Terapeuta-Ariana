@@ -31,6 +31,7 @@ html, body, #__next {
   margin: 0;
   padding:0;
   width: 100%;
+  background: linear-gradient(-80deg, #20180e, #372d25, #0d0c0d, #36383a);
 }
 
 
@@ -47,12 +48,35 @@ html, body, #__next {
 /* Header */
 .header {
   padding: 1rem;
-  color: white;
   position: fixed !important;
-  background-color: white;
+  background: linear-gradient(-45deg, #1b0903, #111112, #151616, #1a0803);
   width: 100vw;
   z-index: 999;
   /* margin-bottom: 20px !important; */
+}
+
+.header * {
+  color: white !important;
+}
+
+/* A largura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* O fundo da trilha da barra de rolagem */
+::-webkit-scrollbar-track {
+  background: #0000000e;
+}
+
+/* A cor da barra de rolagem (o "polegar" que você segura para rolar) */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(-45deg, #1b0903, #111112, #151616, #1a0803);
+}
+
+/* A cor do "polegar" da barra de rolagem ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .content {

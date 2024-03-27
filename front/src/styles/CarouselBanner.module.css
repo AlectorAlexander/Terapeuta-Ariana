@@ -42,7 +42,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5); /* Ajuste a cor e a opacidade conforme necessário */
+    background: linear-gradient(-80deg, #feffef56, #fdeea14b, #261c2299,  #a05d3658);
     z-index: 5; /* Abaixo do texto, acima da imagem */
   }
   
