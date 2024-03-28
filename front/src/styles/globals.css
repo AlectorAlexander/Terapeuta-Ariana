@@ -77,12 +77,13 @@ html, body, #__next {
 
 /* O fundo da trilha da barra de rolagem */
 ::-webkit-scrollbar-track {
-  background: #0000000e;
+  background-color: #111112;
 }
 
 /* A cor da barra de rolagem (o "polegar" que você segura para rolar) */
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(-45deg, #1b0903, #111112, #151616, #1a0803);
+  border-radius: 30px;
+  background: linear-gradient(20deg, #c59151, #f7e3aa, #1b0903,#6f4014, #efbd7b, #c59151, #f7e3aa, #1a0803);
 }
 
 /* A cor do "polegar" da barra de rolagem ao passar o mouse */
