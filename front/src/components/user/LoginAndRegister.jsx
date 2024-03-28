@@ -198,7 +198,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
         Registrar
           </Button>
 
-          <Button variant="danger" onClick={handleGoogleLogin}>Login com Google</Button>
+          <Button variant="warning" onClick={handleGoogleLogin}>Login com Google</Button>
 
           <WhatsappModal show={showWhatsappModal} handleClose={handleWhatsappModalClose} setPhoneNumberProps={setPhoneNumberProps} />
         </div>
@@ -264,7 +264,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
         Registrar
             </Button>
 
-            <Button variant="danger" onClick={handleGoogleLogin}>
+            <Button variant="warning" onClick={handleGoogleLogin}>
         Login com Google
             </Button>
           </div>
@@ -327,7 +327,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
           <div className='d-flex justify-content-center flex-column'>
             <h1>{`Você já está logado, ${clientName}!`}</h1>
             <div className='d-flex my-3 justify-content-center'> 
-              <Button variant="danger" onClick={logout}>
+              <Button variant="warning" onClick={logout}>
               Logout
               </Button>
             </div>

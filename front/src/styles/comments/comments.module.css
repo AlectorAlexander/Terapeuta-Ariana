@@ -1,10 +1,11 @@
 .comments {
-    height: 95vh;
-    background: linear-gradient(#e9f0e6,#dddfd4, #e0e1cf);
+    height: 100vh;
     display: flex;
+    background: linear-gradient(-80deg, #20180e, #372d25, #0d0c0d, #0d0c0d, #36383a);
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    color: white;
 }
 
 .add svg {

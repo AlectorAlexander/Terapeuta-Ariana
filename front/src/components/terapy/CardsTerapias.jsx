@@ -27,7 +27,9 @@ function CardsTerapias({ item }) {
   return (
     <Card className={`animate__animated animate__flipInY ${styles.Card}`}>
       <Card.Body className={styles.CardBody}>
-        <Card.Title className='mb-1' style={{overflow: "hidden", textAlign: "center" ,  textOverflow: "ellipsis", maxWidth: "260px", maxHeight: "60px"}}>{title}</Card.Title>
+        <div className={styles.title}>
+          <Card.Title>{title}</Card.Title>
+        </div>
         <Card.Img
           alt={title}
           className={styles.CardImg}
@@ -40,7 +42,7 @@ function CardsTerapias({ item }) {
         <Button
           className={styles.Button}
           onClick={() => pageChangeToDetails(item, _id)}
-          variant="danger"
+          variant="warning"
         >
           Agendar
         </Button>
