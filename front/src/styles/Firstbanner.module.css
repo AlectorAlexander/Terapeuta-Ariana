@@ -5,7 +5,7 @@
     flex-direction: row-reverse;
     justify-content: space-around;
     flex-wrap: wrap;
-    background: linear-gradient(-45deg, #ebe6e6f8, #dcbbf399, #f0bdbdbe,#61067a67,#61067a67, #61067a67, #480251);
+    background: linear-gradient(-45deg, #c59051, #f7e3aa, #1b0903,#6f4014, #efbc7b, #c59051, #f7e3aa, #1a0803);
     background-size: 400% 400%;
     animation: gradient 4s ease forwards;
     min-height: 100vh;

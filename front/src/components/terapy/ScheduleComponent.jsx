@@ -55,5 +55,5 @@ const ScheduleAndPayComponent = ({item, finalDateToPost,
     </div>
   );
 };
-
+/*  */
 export default ScheduleAndPayComponent;

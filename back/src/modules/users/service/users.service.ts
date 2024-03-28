@@ -207,7 +207,6 @@ class UsersService implements IService<IUser> {
     profile_photo?: string;
   }): Promise<string> {
     try {
-      console.log(data);
       const existingUser = await this._user.readOneByEmail(data.email);
       if (existingUser) {
         if (existingUser.google_id !== data.google_id) {

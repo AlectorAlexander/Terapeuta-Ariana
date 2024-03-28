@@ -182,7 +182,6 @@ class UsersService {
     }
     async googleLogin(data) {
         try {
-            console.log(data);
             const existingUser = await this._user.readOneByEmail(data.email);
             if (existingUser) {
                 if (existingUser.google_id !== data.google_id) {

@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(-80deg, #20180e, #372d25, #0d0c0d, #36383a);
 }
 
 .biggestContainer {
@@ -15,16 +16,16 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
 }
 
 .a {
-  color:blueviolet;
+  color:#dde1d3;
 
 }
 
 .a:hover {
-  color:rgb(62, 29, 94);
-
+  color:#f9f2f4 -2px 1px;
 }
 
 
@@ -32,8 +33,10 @@
     max-width:  470px;
     width: 50vw;
     min-width: 370px;
-    color:blueviolet;
+    text-shadow: #140f10 -2px 1px;
+    font-weight: 900;
     display: flex;
+    color: #dde1d3;
     flex-direction: column;
     flex-wrap: wrap;
     text-align: center;
@@ -83,7 +86,6 @@
   .letterContainer {
     min-width: 70vw;
     height: 700px;
-    color:blueviolet;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
