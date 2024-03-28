@@ -42,7 +42,7 @@ export default function ResetPasswordModal({basicModal, setBasicModal, toggleSho
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="danger" disabled={!isValidEmail(email)} onClick={handleSubmit}>
+          <Button variant="warning" disabled={!isValidEmail(email)} onClick={handleSubmit}>
             Enviar
           </Button>                     
           <Button varianty='secondary' onClick={toggleShow}>

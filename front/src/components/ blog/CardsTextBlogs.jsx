@@ -34,7 +34,7 @@ function CardsTextBlogs({ text }) {
         <Button
           className={styles.Button}
           onClick={() => pageChangeToDetails(text, _id)}
-          variant="danger"
+          variant="warning"
         >
           Continuar Lendo
         </Button>

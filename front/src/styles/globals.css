@@ -31,7 +31,18 @@ html, body, #__next {
   margin: 0;
   padding:0;
   width: 100%;
-  background: linear-gradient(-80deg, #20180e, #372d25, #0d0c0d, #36383a);
+    background: linear-gradient(#e9f0e6,#dddfd4, #e0e1cf);
+}
+
+.slick-arrow {
+  background-color: black !important;
+  width: 24px !important;
+  border-radius: 100%;
+}
+
+.card-title {
+  z-index: 20 !important;
+  font-size: 50px;
 }
 
 

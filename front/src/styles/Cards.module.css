@@ -1,24 +1,55 @@
 .Card {
     width: 231px;
-    height: 300px;
+    height: 420px;
     border-radius: 20px;
-    margin: 20px
+    margin: 20px;
+    background: linear-gradient(20deg, #c59151, #f7e3aa, #1b0903,#6f4014, #efbd7b, #c59151, #f7e3aa, #1a0803);
 }
 
 .CardBody {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
     flex-direction: column;
     height: 100%;
+    font-weight: 900 !important;
+}
+
+.CardBody div {
+    margin: 3px 0;
+}
+
+
+.ListGroupItem {
+    background-color: #1b0903;
+    color: white;
+    font-size: 22px;
+    border-radius: 20px !important;
+    font-weight: 900;
+}
+
+.title {
+    display: flex;
+    justify-content: flex-start;
+    height: 100px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    max-width: 260px;
+    max-height: 96x;
 }
 
 .CardImg {
     border-radius: 30px;
     width: 230px;
-    height: 150px;
+    height: 170px;
+    margin: 20px 0;
 }
 
 .Button {
-    background-color: black;
+    background-color: #121310;
+    color: white;
+    font-weight: 900 !important;
+    font-size: 18px;
 }
+
