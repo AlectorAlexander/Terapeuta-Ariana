@@ -17,6 +17,10 @@ table, th, td {
   border-collapse: collapse;
 }
 
+.navbar-toggler {
+  background-color: white !important;
+}
+
 th {
   border-bottom: none !important;
 }
@@ -83,6 +87,7 @@ html, body, #__next {
 /* A cor da barra de rolagem (o "polegar" que você segura para rolar) */
 ::-webkit-scrollbar-thumb {
   border-radius: 30px;
+
   background: linear-gradient(20deg, #c59151, #f7e3aa, #1b0903,#6f4014, #efbd7b, #c59151, #f7e3aa, #1a0803);
 }
 

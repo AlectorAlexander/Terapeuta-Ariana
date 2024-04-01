@@ -2,20 +2,30 @@ import React, { useEffect, useState } from 'react';
 import 'react';
 import styles from '../styles/Firstbanner.module.css';
 import Image from 'next/image';
-import { TypeAnimation } from 'react-type-animation';
 
 function FirstBanner() {    
-  const [showSecondAnimation, setshowSecondAnimation] = useState(false);
-  const [showThirdAnimation, setshowThirdAnimation] = useState(false);
+  const [showSecondAnimation, setShowSecondAnimation] = useState(false);
+  const [showThirdAnimation, setShowThirdAnimation] = useState(false);
   const [seconds, setSeconds] = useState(false);
 
   useEffect(() => {
+
     const timeoutId = setTimeout(() => {
       setSeconds(true);
     }, 3000);
+
+    const timeoutId2 = setTimeout(() => {
+      setShowSecondAnimation(true);
+    }, 4000); // Mostrar a segunda animação após 4 segundos
     
+    const timeoutId3 = setTimeout(() => {
+      setShowThirdAnimation(true);
+    }, 5000); // Mostrar a terceira animação após 5 segundos
+
     return () => {
-      clearTimeout(timeoutId); 
+      clearTimeout(timeoutId);
+      clearTimeout(timeoutId2);
+      clearTimeout(timeoutId3);
     };
   }, []); 
     
@@ -23,60 +33,36 @@ function FirstBanner() {
     <div 
       className={styles.bio} 
     >
-      <div className={`${styles.photoContainer} animate__animated animate__fadeIn`}>
+      {seconds && <div className={`${styles.photoContainer} animate__animated animate__fadeIn`}>
         <Image
           src='/ariana.png'
           width={250}
           height={250}
           alt='ariana-photo'
         />
-      </div>
+      </div>} 
 
 
       <div className={styles.bioText}>
-        {seconds && <TypeAnimation
-          sequence={[
-            'Eu sou Ariana Castro,',
-            0, 
-            () => setshowSecondAnimation(true)
-          ]}
-          className={styles.typeAnimation}
-          speed={40}
-          wrapper="span"
-          cursor={false}
+        {seconds && <h1
+          className={`animate__animated  animate__fadeInUp ${styles.typeAnimation}`}
           style={{whiteSpace: 'pre-line', fontSize: '32px', display: 'inline-block' }}
-        />}
-        {showSecondAnimation && <TypeAnimation
-          sequence={[
-            'Uma cartomante',
-            10, 
-            'Uma terapeuta holística',
-            'Curo feridas emocionais',
-            2000, 
-            'Uma terapeuta ThetaHealer especializada em serviços de saúde alternativos e holísticos.',
-            2500, 
-            () => setshowThirdAnimation(true)
-          ]}
-          className={styles.typeAnimation2}
-          wrapper="span"
-          cursor={false}
-          deletionSpeed={70}
-          speed={60}
-          style={{whiteSpace: 'pre-line', fontSize: '16px', display: 'inline-block' }}
-        />}
+        >
+            Eu sou Ariana Castro,
+        </h1>}
+        {showSecondAnimation && <p
+          className={`animate__animated  animate__fadeInUp ${styles.typeAnimation2}`}
+          style={{whiteSpace: 'pre-line', fontSize: '18px', display: 'inline-block' }}
+        >
+          Uma terapeuta ThetaHealer especializada em serviços de saúde alternativos e holísticos.
+        </p>}
                
-        {showThirdAnimation && <TypeAnimation
-          sequence={[
-            'Além da terapia, sou cartomante, guiando aqueles que buscam clareza em suas vidas. Meu objetivo é ajudar cada um a encontrar sua verdadeira essência. Creio no poder transformador do ThetaHealing, uma técnica que redefine crenças profundas. Sigo o mantra: "A mudança de vida começa com a transformação de crenças e pensamentos". Seja presencial ou online, estou aqui para ajudar a superar obstáculos e viver plenamente.',
-            0,
-          ]}
-          wrapper="span"
-          speed={115}
-          className={styles.typeAnimation2}
-          deletionSpeed={99}
-          cursor={true}
-          style={{whiteSpace: 'pre-line', fontSize: '16px', display: 'inline-block' }}
-        />}
+        {showThirdAnimation && <p
+          style={{whiteSpace: 'pre-line', fontSize: '18px', display: 'inline-block' }}
+          className={`animate__animated  animate__fadeInUp ${styles.typeAnimation2}`}
+        >
+          Além da terapia, sou cartomante, guiando aqueles que buscam clareza em suas vidas. Meu objetivo é ajudar cada um a encontrar sua verdadeira essência. Creio no poder transformador do ThetaHealing, uma técnica que redefine crenças profundas. Sigo o mantra: {`"A mudança de vida começa com a transformação de crenças e pensamentos"`}. Seja presencial ou online, estou aqui para ajudar a superar obstáculos e viver plenamente.
+        </p>}
         {<p>
                 
         </p>}
