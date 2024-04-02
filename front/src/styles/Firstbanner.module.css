@@ -7,7 +7,8 @@
     background: linear-gradient(-45deg, #c59051, #f7e3aa, #1b0903,#6f4014, #efbc7b, #c59051, #f7e3aa, #1a0803);
     background-size: 400% 400%;
     animation: gradient 4s ease forwards;
-    min-height: 100vh;
+    min-height: 100vh; 
+    max-height: 100vh !important; 
     align-items: center;
   }
   
@@ -57,7 +58,7 @@
   .photoContainer img {
     margin-bottom: 0 !important;
   }
-  
+
   }
 
   
