@@ -29,14 +29,7 @@ body, body * {
   font-family: 'Cormorant Garamond', serif;
 }
 
-html, body, #__next {
-  height: 100%;
-  overflow-x: hidden;
-  margin: 0;
-  padding:0;
-  width: 100%;
-    background: linear-gradient(#e9f0e6,#dddfd4, #e0e1cf);
-}
+
 
 .slick-arrow {
   background-color: black !important;
@@ -146,3 +139,17 @@ html, body, #__next {
   min-height: 100vh;
 }
 
+html, body, #__next {
+  height: 100%;
+  overflow-x: hidden;
+  max-height: 100vh !important;
+  margin: 0;
+  padding:0;
+  width: 100%;
+    background: linear-gradient(#e9f0e6,#dddfd4, #e0e1cf);
+}
+
+@media screen and  (max-width: 600px) {
+}html, body, #__next {
+  overflow-y: hidden;
+}
