@@ -140,7 +140,7 @@ body, body * {
 }
 
 html, body, #__next {
-  height: 100%;
+  height: 100% !important;
   overflow-x: hidden;
   max-height: 100vh !important;
   margin: 0;
@@ -149,7 +149,4 @@ html, body, #__next {
     background: linear-gradient(#e9f0e6,#dddfd4, #e0e1cf);
 }
 
-@media screen and  (max-width: 600px) {
-}html, body, #__next {
-  overflow-y: hidden;
-}
+
