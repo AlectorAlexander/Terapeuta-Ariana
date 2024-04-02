@@ -4,9 +4,9 @@
 *,
 *::before,
 *::after {
-  margin: 0 !important;
+  margin: 0;
   padding: 0;
-  box-sizing: border-box !important;
+  box-sizing: border-box;
 }
 .rdw-editor-main {
   min-height: 50vh !important;
@@ -17,10 +17,6 @@ table, th, td {
   border-collapse: collapse;
 }
 
-.navbar-toggler {
-  background-color: white !important;
-}
-
 th {
   border-bottom: none !important;
 }
@@ -29,7 +25,14 @@ body, body * {
   font-family: 'Cormorant Garamond', serif;
 }
 
-
+html, body, #__next {
+  height: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding:0;
+  width: 100%;
+    background: linear-gradient(#e9f0e6,#dddfd4, #e0e1cf);
+}
 
 .slick-arrow {
   background-color: black !important;
@@ -49,19 +52,31 @@ body, body * {
   align-items: start !important;
 }
 
+
+
 .carousel-indicators {
   display: none !important;
 }
 
 /* Header */
+
+.reverta {
+  display: flex;
+  justify-content: center ;
+  width: 100%;
+}
+
 .header {
   padding: 1rem;
   position: fixed !important;
   background: linear-gradient(-45deg, #1b0903, #111112, #151616, #1a0803);
   width: 100vw;
   z-index: 999;
+  display: flex;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  /* margin-bottom: 20px !important; */
 }
-
 
 .header * {
   color: white !important;
@@ -80,7 +95,6 @@ body, body * {
 /* A cor da barra de rolagem (o "polegar" que você segura para rolar) */
 ::-webkit-scrollbar-thumb {
   border-radius: 30px;
-
   background: linear-gradient(20deg, #c59151, #f7e3aa, #1b0903,#6f4014, #efbd7b, #c59151, #f7e3aa, #1a0803);
 }
 
@@ -90,7 +104,7 @@ body, body * {
 }
 
 .content {
-  margin-top: 160px;
+  margin-top: 160px !important;
 }
 
 
@@ -99,6 +113,7 @@ body, body * {
   flex: 1;
   overflow: auto;
 }
+
 
 /* Footer */
 .footer {
@@ -112,13 +127,15 @@ body, body * {
   .header, .footer {
     padding: 0.5rem;
   }
+
 }
+
 
 #paper {
   display: flex;
   flex: 1;
   flex-direction: column;
-  height:100% !important;
+  height:100%;
   width: 100%;
  }
  
@@ -136,18 +153,22 @@ body, body * {
  #__next {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
-html, body, #__next {
-  height: 100% !important;
-  overflow-x: hidden;
-  overflow-y: auto !important;
-  max-height: 100vh !important;
-  margin: 0;
-  padding:0;
-  width: 100%;
-    background: linear-gradient(#e9f0e6,#dddfd4, #e0e1cf);
+body {
+  overflow-y: hidden;
 }
 
+.navbar-toggler-icon {
+  background-color: #fffbfb; /* cor branca */
+  border-radius: 5px;
+}
 
+@media (max-width: 991px) {
+  .reverta {
+    display: flex;
+    flex-direction: row-reverse !important;
+    justify-content: space-between;
+    width: 50%;
+  }
+}

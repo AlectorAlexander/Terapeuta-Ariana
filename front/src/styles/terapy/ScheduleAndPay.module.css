@@ -17,10 +17,11 @@
     display: flex;
     justify-content: space-around;
     flex-direction: row-reverse;
-    background-color: rgb(12, 84, 84);
     align-items: center;
     padding: 5px 0;
-    color: white;
+    background: linear-gradient(-45deg, #f0c084, #eee4c9, #e2d4d0,#512801, #ece0d1, #e8ceae, #eee0b9, #63433a);
+    color: black;
+    text-shadow: 1px 1px white;
     font-size: 20px;
     font-weight: 600;
     border-radius: 10px 10px;

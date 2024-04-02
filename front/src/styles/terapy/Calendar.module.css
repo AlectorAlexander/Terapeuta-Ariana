@@ -1,12 +1,21 @@
 .calendar, .calendarComplete, .calendar th, .calendar td {
- background-color: rgb(0, 76, 255);   
  color: white;
  font-family: 'Courier New', Courier, monospace;
  z-index: 2;
 }
 
+.calendar th, .calendar td {
+  background: linear-gradient(-45deg, #1b09035f, #11111285, #15161687, #1a08038b);
+}
+
+.calendarComplete  {
+  background: linear-gradient(-45deg, #1b0903, #111112, #151616, #1a0803);
+
+}
+
 .calendarComplete{
-    min-height: 371px;
+  background: linear-gradient(-45deg, #1b0903, #111112, #151616, #1a0803);
+  min-height: 371px;
 }
 
 .nonClickable {
