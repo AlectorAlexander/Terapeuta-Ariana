@@ -1,6 +1,5 @@
 .bio {
-    margin-top: 40px;
-    padding-top: 72px;
+    padding-top: 112px;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-around;
@@ -26,6 +25,7 @@
     
   .photoContainer img {
     border-radius: 20px;
+    margin-bottom: 200px;
   }
   
   .bioText {
@@ -52,6 +52,13 @@
       font-family: 'Cormorant', serif;
     }
     
+@media screen and  (max-width: 1013px) {
+      
+  .photoContainer img {
+    margin-bottom: 0 !important;
+  }
+  
+  }
 
   
 @media screen and (min-width: 681px) and  (max-width: 1013px) {
