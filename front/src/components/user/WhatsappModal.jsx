@@ -51,7 +51,7 @@ const WhatsappModal = ({ show, handleClose }) => {
 
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>Informe seu número de telefone do WhatsApp</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -67,7 +67,7 @@ const WhatsappModal = ({ show, handleClose }) => {
             />
             {phoneNumberError && <Form.Text className="text-danger">{phoneNumberError}</Form.Text>}
             <Form.Text className="text-muted">
-            A terapeuta entrará em contato com você através do WhatsApp para combinar e intruir detalhes sobre a terapia. Fique tranquilo, não compartilharemos seus dados com ninguém.
+            A terapeuta entrará em contato com você através do WhatsApp para combinar e intruir detalhes sobre a terapia.
             </Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit" disabled={!isPhoneNumberValid}>

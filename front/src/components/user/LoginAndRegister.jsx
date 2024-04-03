@@ -130,8 +130,10 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
   
 
   const handleEmailLogin = async () => {
+    setRegisterClicked(false);
     try {
       setLoading(true);
+      console.log(email, password);
       const result = await signInWithEmail(email, password);
       const body = {...result.user, password};
       let response;
@@ -147,8 +149,9 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
           response = await axios.put('/api/users/updateByEmail', {email, password});
         } else {
           setError(err);
-          throw err;  // Se for um outro erro, jogue-o para ser capturado mais abaixo.
+          throw err;
         } 
+        setRegisterClicked(false);
       }
   
       localStorage.setItem('authToken', response.data);
@@ -156,7 +159,6 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
       setError(e);
     } finally {
       setLoading(false);
-      onHide(); // Defina como false quando a operação for concluída (tanto em sucesso quanto em erro)
     }
   };
   
@@ -179,7 +181,6 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
       })
       .finally(() => {
         setLoading(false);
-        onHide(); // Defina como false quando a operação for concluída (tanto em sucesso quanto em erro)
       });
   };
 
@@ -198,7 +199,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
         Registrar
           </Button>
 
-          <Button variant="warning" onClick={handleGoogleLogin}>Login com Google</Button>
+          <Button variant="danger" onClick={handleGoogleLogin}>Login com Google</Button>
 
           <WhatsappModal show={showWhatsappModal} handleClose={handleWhatsappModalClose} setPhoneNumberProps={setPhoneNumberProps} />
         </div>
@@ -271,6 +272,25 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
         </div>);
     }
   };
+
+  function firstName(texto) {
+    // Verifica se o texto está vazio ou indefinido
+    if (!texto || texto.length === 0) {
+      return "";
+    }
+    
+    // Encontra a posição do primeiro espaço na string
+    const posicaoEspaco = texto.indexOf(' ');
+    
+    // Se não houver espaço, retorna o texto completo
+    if (posicaoEspaco === -1) {
+      return texto;
+    }
+    
+    // Retorna a parte da string antes do primeiro espaço
+    return texto.substring(0, posicaoEspaco);
+  }
+
     
 
   return (
@@ -290,7 +310,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
               setBasicModal={setBasicModal}
               toggleShow={toggleShow}
             />
-            {erro && <ErrorModal error={erro} />}
+            {erro && <ErrorModal setError={setError} error={erro} />}
             <Form>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label className="d-flex flex-column">
@@ -325,7 +345,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
           </Modal.Body>
         ) : (
           <div className='d-flex justify-content-center flex-column'>
-            <h1>{`Você já está logado, ${clientName}!`}</h1>
+            <h1>{`Você está logado(a), ${firstName(clientName)}!`}</h1>
             <div className='d-flex my-3 justify-content-center'> 
               <Button variant="warning" onClick={logout}>
               Logout

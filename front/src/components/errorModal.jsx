@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 
-export default function ErrorModal({error}) {
+export default function ErrorModal({error, setError}) {
   const [basicModal, setBasicModal] = useState(false);
   const  [errorMessage, setErrorMessage] = useState();
 
-  const toggleShow = () => setBasicModal(!basicModal);
+  const toggleShow = () => {
+    setError (null);
+    setBasicModal(!basicModal);
+  };
 
   useEffect(() => {
     const alreadyInUse = 'Firebase: Error (auth/email-already-in-use).';
