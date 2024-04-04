@@ -221,8 +221,8 @@ let SchedulesService = class SchedulesService {
             if (!existingSchedule)
                 throw new common_1.BadRequestException('Schedule not found');
             console.log({ el1: data.start_date, el2: existingSchedule.start_date });
-            const isStartDateChanged = !data.start_date || existingSchedule.start_date.toString() !== data.start_date.toString();
-            const isEndDateChanged = !data.end_date || existingSchedule.end_date.toString() !== data.end_date.toString();
+            const isStartDateChanged = !data.start_date ? false : existingSchedule.start_date.toString() !== data.start_date.toString();
+            const isEndDateChanged = !data.end_date ? false : existingSchedule.end_date.toString() !== data.end_date.toString();
             const isDateChanged = isStartDateChanged || isEndDateChanged;
             const updatedSchedule = await this._schedule.update(id, data);
             if (existingSchedule.google_event_id) {

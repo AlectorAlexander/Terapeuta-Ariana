@@ -19,6 +19,10 @@ declare class UsersService implements IService<IUser> {
     update(id: string, obj: IUser | object): Promise<IUser>;
     updateByEmail(email: string, obj: IUser | object): Promise<string>;
     delete(id: string): Promise<IUser>;
+    doesUserHavePhoneNumberINTERROGATION(data: {
+        google_id: string;
+        email: string;
+    }): Promise<boolean>;
     googleLogin(data: {
         google_id: string;
         email: string;

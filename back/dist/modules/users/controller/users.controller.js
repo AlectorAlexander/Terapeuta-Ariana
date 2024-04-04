@@ -121,6 +121,15 @@ let UsersController = class UsersController {
             throw new common_1.BadRequestException('Invalid token');
         }
     }
+    async validateNumber(data) {
+        try {
+            const isValid = await this.usersService.doesUserHavePhoneNumberINTERROGATION(data);
+            return isValid;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException('Invalid something');
+        }
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -181,6 +190,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "validateToken", null);
+__decorate([
+    (0, common_1.Post)('validate-number'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "validateNumber", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.default])

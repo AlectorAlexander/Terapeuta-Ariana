@@ -199,6 +199,30 @@ class UsersService implements IService<IUser> {
     return User;
   }
 
+  public async doesUserHavePhoneNumberINTERROGATION(data: {
+    google_id: string;
+    email: string;
+  }): Promise<boolean> {
+    try {
+      const existingUser = await this._user.readOneByEmail(data.email);
+      if (existingUser) {
+        if (existingUser.google_id !== data.google_id) {
+          // O front depende da seguinte mensagem de erro pra trata-lo corretamente.
+          throw new Error('Email already registered without Google.');
+        } else if (existingUser.phone) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   public async googleLogin(data: {
     google_id: string;
     email: string;

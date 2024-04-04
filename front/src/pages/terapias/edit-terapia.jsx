@@ -141,7 +141,7 @@ const terapiasEditator = () => {
             }}
           />
         </div>
-        <Button disabled={!disabledOrNot} onClick={saveTheText} >
+        <Button className='mt-5' disabled={!disabledOrNot} onClick={saveTheText} >
           SAVE THE TEXT
         </Button>
       </div>

@@ -12,6 +12,10 @@
   min-height: 50vh !important;
 }
 
+.notranslate {
+  background: linear-gradient(70deg, #ffffff 10%, #f0f0f0 30%, #dcdcdc 50%, #b0a89768 70%, #8b7a664d 90%);
+}
+
 table, th, td {
   border: none !important;
   border-collapse: collapse;

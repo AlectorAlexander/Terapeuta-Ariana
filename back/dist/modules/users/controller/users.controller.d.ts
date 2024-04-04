@@ -20,4 +20,8 @@ export declare class UsersController {
         phone: string;
     }): Promise<string>;
     validateToken(token: string): Promise<unknown>;
+    validateNumber(data: {
+        google_id: string;
+        email: string;
+    }): Promise<boolean>;
 }

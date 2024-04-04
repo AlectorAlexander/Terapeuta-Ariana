@@ -139,4 +139,21 @@ export class UsersController {
       throw new BadRequestException('Invalid token');
     }
   }
+
+  @Post('validate-number')
+  async validateNumber(
+    @Body()
+    data: {
+      google_id: string;
+      email: string;
+    },
+  ): Promise<boolean> {
+    try {
+      const isValid =
+        await this.usersService.doesUserHavePhoneNumberINTERROGATION(data);
+      return isValid;
+    } catch (error) {
+      throw new BadRequestException('Invalid something');
+    }
+  }
 }
