@@ -2,12 +2,20 @@ import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import styles from '../../styles/Contato.module.scss';
+import CarouselComponent from '@/components/CarouselBanner';
 
 const Contato = () => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [assunto, setAssunto] = useState('');
   const [mensagem, setMensagem] = useState('');
+
+  const images = [
+    '/contatosBanner1.png', 
+    '/contatosBanner2.png', 
+    '/contatosBanner4.png',
+    '/contatosBanner5.png', 
+  ];
 
   const serviceId = process.env.NEXT_PUBLIC_SERVICE_ID;
   const templateId = process.env.NEXT_PUBLIC_TEMPLATE_ID;
@@ -52,13 +60,18 @@ const Contato = () => {
 
   return (
     <div className={styles.container} data-type="Contatos">
+      <CarouselComponent 
+        titleh1="Contato" 
+        textp="Conte comigo!" 
+        images={images} 
+      />
       <form className={styles.form} onSubmit={handleSubmit}>
         <h1 className={`text-center animate__animated animate__swing ${styles.title}`}>Contate-me</h1>
         <div
           className='d-flex w-100'
         >
           <TextField
-            className='mx-1 w-100'
+            className='m-1 w-100'
             required
             color="success"
             id="nome"
@@ -68,7 +81,7 @@ const Contato = () => {
             onChange={(event) => setNome(event.target.value)}
           />
           <TextField
-            className='mx-1 w-100'
+            className='m-1 w-100'
             required
             color="success"
             id="email"
@@ -79,7 +92,7 @@ const Contato = () => {
           />
         </div>
         <TextField
-          className='w-100'  
+          className='w-100 m-1'  
           required
           color="success"
           id="assunto"
@@ -90,7 +103,7 @@ const Contato = () => {
         />
                 
         <TextField
-          className='w-100'
+          className='w-100 m-1'
           required
           id="mensagem"
           color="success"

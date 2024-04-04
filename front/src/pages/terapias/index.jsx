@@ -4,7 +4,7 @@ import useSWR from "swr";
 import axios from 'axios';
 import Cards from "../../components/terapy/CardsTerapias";
 import Loading from "../../components/Loading";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { PlusOutlined } from '@ant-design/icons';
 import { useRouter } from "next/router";
 import ArianaContext from "@/context/ArianaContext";
@@ -25,11 +25,6 @@ function Terapias() {
     '/bannerTerapias3.png', 
     '/bannerTerapias4.png'
   ];
-
-  useEffect(() => {
-    console.log({terapiasIndexPage30: data});
-
-  }, [data]);
 
   const moveToEditionPage = () => {
     router.push('/terapias/edit-terapia');

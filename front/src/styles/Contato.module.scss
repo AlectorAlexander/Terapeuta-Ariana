@@ -1,12 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
 
 $bg-color: #d0e1d0;
-$text-color1: #7a4228;
-$text-color2: #6e3a20;
-$text-color3: #833f20;
+$text-color1: #8f8431;
+$text-color2: #6e6920;
+$text-color3: #af9505;
 
   .title {
-    margin-top: 10px;
     font-size: 50px;
     background: linear-gradient(45deg, $text-color1 40%, $text-color2 60%, $text-color3 20%);
     -webkit-background-clip: text;
@@ -27,10 +26,7 @@ $text-color3: #833f20;
   }
   
   .form {
-    margin: 1rem;
-    margin-top: 2rem;
-    height: 72vh;
-    margin-top: 20vh;
+    margin-top: 5vh;
     margin-bottom: 21vh;
     display: flex;
     flex-direction: column;
