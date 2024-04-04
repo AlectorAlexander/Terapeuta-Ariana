@@ -7,6 +7,7 @@ const ArianaProvider = ({ children }) => {
   const [BlogsText, setBlogsText] = useState(null);
   const [finalDateToPost, setFinalDateToPost] = useState(null);
   const [isUserValidated, setIsUserValidated] = useState(false);
+  const [item, setItem] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [sessionName, setName] = useState(false);
   const [token, setToken] = useState(null);
@@ -33,6 +34,8 @@ const ArianaProvider = ({ children }) => {
     terapiaToEdition, 
     setTerapiaToEdition,
     phoneNumber, 
+    item, 
+    setItem,
     setPhoneNumber,
     BlogsText, 
     setBlogsText,

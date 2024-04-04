@@ -1,6 +1,9 @@
+import ArianaContext from "@/context/ArianaContext";
 import styles from "@/styles/terapy/TerapiaDetails.module.css";
+import { useContext } from "react";
 
-const TerapiaDetails = ({item}) => {
+const TerapiaDetails = () => {
+  const { item } = useContext(ArianaContext);
   const { title, image, description } = item;
 
   return (

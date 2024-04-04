@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
 import styles from "@/styles/terapy/ScheduleAndPay.module.css";
 import CalendarAlector from './Calendar';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import ArianaContext from "@/context/ArianaContext";
 
-const ScheduleAndPayComponent = ({item, finalDateToPost,
+const ScheduleAndPayComponent = ({finalDateToPost,
   setFinalDateToPost, setContinuar}) => {
+
+  const {item} = useContext(ArianaContext);
 
   const {price, duracao} = item;
   let formattedPrice = "";
@@ -48,7 +51,7 @@ const ScheduleAndPayComponent = ({item, finalDateToPost,
         variant="primary"
         className={styles.button}
         disabled={!finalDateToPost}
-        onClick={() => setContinuar(true)}
+        onClick={async () => await setContinuar()}
       >
         Continuar
       </Button>

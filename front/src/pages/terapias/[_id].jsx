@@ -22,8 +22,7 @@ const TerapiaDetail = () => {
   const router = useRouter();
   const { _id } = router.query;
   const { terapiaDetails, isUserValidated, phoneNumber, setPhoneNumber, finalDateToPost, setFinalDateToPost, setName, setClientName, clientName,
-    setTerapiaToEdition, isAdmin } = useContext(ArianaContext);
-  const [item, setItem] = useState(null);
+    setTerapiaToEdition, isAdmin, item, setItem } = useContext(ArianaContext);
   const [continuar, setContinuar] = useState(false);
   const [shouldFetch, setShouldFetch] = useState(false);
   const [originalTerapyFormat, setOriginalTerapyFormat] = useState(null);
@@ -71,9 +70,6 @@ const TerapiaDetail = () => {
       console.error("Ocorreu um erro ao excluir o post:", error);
     }
   };
-
-
-
   
   const fetch = shouldFetch ? `/api/products/${_id}` : null;
   const { data, error } = useSWR(fetch, fetcher);
@@ -102,24 +98,12 @@ const TerapiaDetail = () => {
     }
   }, [data, shouldFetch]);
 
-
-
-  useEffect(() => {
-    if (continuar && !isUserValidated) {
+  const handleContinuar = async () => {
+    await setContinuar(true);
+    if (!isUserValidated) {
       setOnHide(true);
-    } 
-  }, [continuar, isUserValidated]); // Dependências para reação às mudanças destes estados.
-  
-  /* LÓGICA PRO WHATSAPPMODAL AQUI */
-
-  useEffect(() => {
-    if (phoneNumber !== '') {
-      localStorage.setItem('clientPhone', phoneNumber);
-      setClientName(`${clientName} - Telefone: ${phoneNumber}`);
     }
-
-  }, [phoneNumber]);
-
+  };
 
   const renderRightComponent = () => {
     if (continuar && isUserValidated ) {
@@ -130,7 +114,7 @@ const TerapiaDetail = () => {
         <ScheduleAndPayComponent 
           finalDateToPost={finalDateToPost} 
           setFinalDateToPost={setFinalDateToPost} 
-          setContinuar={setContinuar} 
+          setContinuar={handleContinuar} 
           item={item} 
         />
       );
@@ -138,7 +122,18 @@ const TerapiaDetail = () => {
     // Se não entrar em nenhum caso acima, retorna null.
     return null;
   };
-  
+
+
+
+
+  useEffect(() => {
+    if (phoneNumber !== '') {
+      localStorage.setItem('clientPhone', phoneNumber);
+      setClientName(`${clientName} - Telefone: ${phoneNumber}`);
+    }
+
+  }, [phoneNumber]);
+
 
   const renderDetailsScheduleComponent = () => {
     if (item) {
