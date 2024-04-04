@@ -92,25 +92,44 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
       setLoading(true);
       const googleResult = await signInWithGoogle();
       setUserGoogleData(googleResult.user);
-      setLoading(false);
-      setShowWhatsappModal(true);
     } catch (error) {
       console.error(error);
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (userGoogleData) {
+      doWeNeedWhatappModalINTERROGATION(userGoogleData).then((response) => {
+        if (!response) {
+          setLoading(false);
+          setShowWhatsappModal(!response);
+        } else {
+          completeGoogleSignIn(userGoogleData).catch(console.error);
+        }
+        
+      });
+    }
+  }, [userGoogleData]);
+
+
+  const doWeNeedWhatappModalINTERROGATION = async (userGoogleData) => {
+    setLoading(true);
+    const response = await axios.post ('/api/users/validatePhoneNumber', {google_id: userGoogleData.uid, ...userGoogleData});
+    return response.data;
+  }; 
+
   const handleWhatsappModalClose = (phoneNumber) => {
     if (phoneNumber) {
-      completeGoogleSignIn(userGoogleData, phoneNumber);
+      completeGoogleSignInWithPhoneNumber(userGoogleData, phoneNumber);
     } else {
-      // Se não tiver número de telefone, pode mostrar um erro ou simplesmente fechar o modal
       console.log("Número de telefone necessário");
     }
     setShowWhatsappModal(false);
   };
 
-  const completeGoogleSignIn = async (userData, phoneNumber) => {
+  // Função que recebe phoneNumber como parâmetro
+  const completeGoogleSignInWithPhoneNumber = async (userData, phoneNumber) => {
     try {
       setLoading(true);
       const response = await axios.post('/api/users/loginWithGoogle', {
@@ -119,13 +138,33 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
       });
       localStorage.setItem('authToken', response.data);
       setToken(response.data);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error(error);
     } finally {
       setLoading(false);
       onHide(); // Feche o modal de login/cadastro
     }
   };
+
+  const completeGoogleSignIn = async (userData) => {
+    console.log({ userData });
+    try {
+      setLoading(true);
+      const response = await axios.post('/api/users/loginWithGoogle', userData);
+      console.log({ response });
+      localStorage.setItem('authToken', response.data);
+      setToken(response.data);
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    } finally {
+      setLoading(false);
+      onHide(); // Feche o modal de login/cadastro
+    }
+  };
+
 
   
 
@@ -265,7 +304,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
         Registrar
             </Button>
 
-            <Button variant="warning" onClick={handleGoogleLogin}>
+            <Button variant="danger" onClick={handleGoogleLogin}>
         Login com Google
             </Button>
           </div>
@@ -347,7 +386,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
           <div className='d-flex justify-content-center flex-column'>
             <h1>{`Você está logado(a), ${firstName(clientName)}!`}</h1>
             <div className='d-flex my-3 justify-content-center'> 
-              <Button variant="warning" onClick={logout}>
+              <Button variant="danger" onClick={logout}>
               Logout
               </Button>
             </div>
