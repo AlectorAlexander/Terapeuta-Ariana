@@ -22,6 +22,10 @@ export function CheckoutForm({ clientSecret }) {
     const SERVICE_ID = process.env.NEXT_PUBLIC_SERVICE_ID;
     const EMPLATE_ID = process.env.NEXT_PUBLIC_TEMPLATE_ID;
     const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY;  
+    console.log({
+      SERVICE_ID,
+      EMPLATE_ID,
+      PUBLIC_KEY});
     const emailData = {
       to_name: "Ariana",
       from_name: "Ariana Terapias",
