@@ -37,10 +37,10 @@ const SchedulingList = () => {
 
   const deletar = async (payment, session, schedule) => {
     const dataIds = {
-      paymentId: payment._id,
-      sessionId: session._id,
+      paymentId: payment && payment._id ? payment._id : 'SEM ID',
+      sessionId: session && session._id ? session._id : 'SEM ID',
       scheduleId: schedule._id,
-      paymentIntentId: payment.paymentIntentId
+      paymentIntentId: payment && payment.paymentIntentId ? payment.paymentIntentId : ''
     };
     try {
       const token = localStorage.getItem('authToken');
@@ -65,6 +65,7 @@ const SchedulingList = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(response);
 
       const newPayments = [];
       const newSessions = [];
@@ -73,6 +74,7 @@ const SchedulingList = () => {
 
       response.data.forEach((el) => {
         const { paymentData, sessionData, scheduleData, userData } = el;
+
 
         newPayments.push(paymentData);
         newSessions.push(sessionData);
@@ -203,8 +205,8 @@ const SchedulingList = () => {
                 <TableRow key={scheduling._id}>
                   <TableCell>{formatSlot(scheduling.start_date, scheduling.end_date)}</TableCell>
                   <TableCell>{client.name}</TableCell>
-                  <TableCell>{extrairDescricao(session.date)}</TableCell>
-                  <TableCell>{payment.price}</TableCell>
+                  <TableCell>{extrairDescricao(session.date || session || "Sem informações")}</TableCell>
+                  <TableCell>{payment && payment.price ? payment.price : "Sem informações"}</TableCell>
                   <TableCell>
                     <Button className={styles.buttons} onClick={() => welcomeToModal(scheduling, extrairDescricao(sessions[i].date))}>Reagendar</Button>
                     <Button variant='danger' className={styles.buttons} onClick={() => deletar(payments[i], sessions[i], scheduling)}>Cancelar e Reembolsar</Button>

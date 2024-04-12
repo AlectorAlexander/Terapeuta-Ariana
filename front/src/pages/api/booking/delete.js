@@ -41,13 +41,15 @@ export default async function Delete(req, res) {
     if (!response) {
       throw new Error('Erro ao excluir agendamento: Resposta vazia');
     }
-    const chargeId = await getChargeIdFromPaymentIntent(paymentIntentId);
-    if (chargeId) {
-      await createRefund(chargeId);
-      console.log('Refund created successfully');
-    } else {
-      console.log('No charge ID found for PaymentIntent');
-      throw new Error('No charge ID found for PaymentIntent'); 
+    if (paymentIntentId) {
+      const chargeId = await getChargeIdFromPaymentIntent(paymentIntentId);
+      if (chargeId) {
+        await createRefund(chargeId);
+        console.log('Refund created successfully');
+      } else {
+        console.log('No charge ID found for PaymentIntent');
+        throw new Error('No charge ID found for PaymentIntent'); 
+      }
     }
     res.status(204).json(response.data);
   } catch (error) {

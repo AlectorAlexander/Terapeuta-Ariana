@@ -80,6 +80,7 @@ export class BookingController {
   ) {
     try {
       const { paymentId, sessionId, scheduleId } = data;
+
       const deletedBooking = await this.bookingService.deleteBooking(
         paymentId,
         sessionId,

@@ -34,14 +34,19 @@ class BookingService {
     scheduleId: string,
   ): Promise<IBookingData | null> {
     try {
-      const payment = await this.paymentService.delete(paymentId);
-      if (!payment) {
-        throw new Error('Failed to delete payment');
+      let payment = {};
+      let session = {};
+      if (paymentId !== 'SEM ID' && paymentId !== null) {
+        payment = await this.paymentService.delete(paymentId);
+        if (!payment) {
+          throw new Error('Failed to delete payment');
+        }
       }
-
-      const session = await this.sessionService.delete(sessionId);
-      if (!session) {
-        throw new Error('Failed to delete session');
+      if (sessionId !== 'SEM ID' && sessionId !== null) {
+        session = await this.sessionService.delete(sessionId);
+        if (!session) {
+          throw new Error('Failed to delete session');
+        }
       }
 
       const schedule = await this.schedulesService.delete(scheduleId);
