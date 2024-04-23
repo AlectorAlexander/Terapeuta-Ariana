@@ -8,7 +8,7 @@ import Loading from '../Loading';
 // eslint-disable-next-line no-unused-vars
 import { signOut } from '@/services/auth';
 
-function CalendarMonth({durationInMinutes, setFinalDateToPost, monthData, year, monthIndex }) {
+export function CalendarMonth({durationInMinutes, setFinalDateToPost, monthData, year, monthIndex }) {
   const [clickedDay, setClickedDay] = useState(null);
   const [availableSchedules, setAvailableSchedules] = useState(null);
   const [dayElement, setDayElement] = useState(null);
@@ -67,10 +67,15 @@ function CalendarMonth({durationInMinutes, setFinalDateToPost, monthData, year, 
   const AvailableSchedules = (availableSchedules) => {
     return !loading ?
       availableSchedules
-        .map((schedule, index) => (
-          <li
-            className={clickedHoursIndex === index ? styles.selected : ''}
-            onClick={({target}) => addHourToDateToPost(target, index, dateToPost, setClickedHoursIndex, setFinalDateToPost)} key={index}>{schedule}</li>))
+        .map((schedule, index) => {
+
+          console.log({schedule});
+
+          return (
+            <li
+              data-testid={`time-slot-${schedule}`}
+              className={clickedHoursIndex === index ? styles.selected : ''}
+              onClick={({target}) => addHourToDateToPost(target, index, dateToPost, setClickedHoursIndex, setFinalDateToPost)} key={index}>{schedule}</li>);})
       : <Loading />;
   };
 
@@ -87,11 +92,12 @@ function CalendarMonth({durationInMinutes, setFinalDateToPost, monthData, year, 
         {monthData.map((week, weekIndex) => (
           <tr className={`braza ${weekIndex === marginWeekIndex ? styles.marginTopMagic : ''}`} key={weekIndex}>
             {week.map((day, dayIndex) => {
+              const testId = day ? `day-slot-${day.day}-month-${monthIndex}` : `day-slot-null-${dayIndex}`;
               if (!day) {
-                return <td key={dayIndex}></td>;
+                return <td data-testid={testId}  key={dayIndex}></td>;
               }
               return (
-                <td key={dayIndex} style={day.isHoliday || day.hasItAlrdyPassed ? { textDecoration: 'line-through' } : {}}>
+                <td data-testid={testId} key={dayIndex} style={day.isHoliday || day.hasItAlrdyPassed ? { textDecoration: 'line-through' } : {}}>
                   <div 
                     onClick={({ target }) => {
                       if (!day.hasItAlrdyPassed) {

@@ -119,7 +119,6 @@ const TerapiaDetail = () => {
         />
       );
     }
-    // Se não entrar em nenhum caso acima, retorna null.
     return null;
   };
 

@@ -16,6 +16,6 @@ declare class SchedulesService implements IService<ISchedules> {
     findByDate(start_date: Date, end_date?: Date): Promise<ISchedules[]>;
     update(id: string, data: ISchedules): Promise<ISchedules | null>;
     delete(id: string): Promise<ISchedules | null>;
-    filterAvailableSlots(dateInput: string | Date, slots: string[]): Promise<string[]>;
+    filterAvailableSlots(dateInput: any, slots: any): Promise<any>;
 }
 export default SchedulesService;

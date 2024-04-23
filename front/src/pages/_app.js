@@ -36,7 +36,6 @@ function MyApp({ Component, pageProps }) {
     // Evento chamado quando uma mensagem é recebida do servidor
     socket.onmessage = function(event) {
       const newNotification = JSON.parse(event.data);
-      console.log('Mensagem recebida', newNotification);
       setNotifications(previousNotifications => [
         ...previousNotifications,
         newNotification

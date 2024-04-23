@@ -276,24 +276,31 @@ let SchedulesService = class SchedulesService {
         }
     }
     async filterAvailableSlots(dateInput, slots) {
-        const date = new Date(dateInput);
-        const dayStart = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
-        const dayEnd = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
+        const dayStart = new Date(dateInput);
+        dayStart.setHours(0, 0, 0, 0);
+        const dayEnd = new Date(dateInput);
+        dayEnd.setHours(23, 59, 59, 999);
         const existingAppointments = await this.findByDate(dayStart, dayEnd);
-        const availableSlots = slots.filter((slot) => {
+        const appointmentsTimeRanges = existingAppointments.map(appointment => ({
+            start: new Date(appointment.start_date).getTime(),
+            end: new Date(appointment.end_date).getTime()
+        }));
+        const result = slots.filter(slot => {
             const [startTime, endTime] = slot.split(' - ');
-            const [startHour, startMinute] = startTime.split(':').map(Number);
-            const [endHour, endMinute] = endTime.split(':').map(Number);
-            const slotStart = new Date(date.getFullYear(), date.getMonth(), date.getDate(), startHour, startMinute);
-            const slotEnd = new Date(date.getFullYear(), date.getMonth(), date.getDate(), endHour, endMinute);
-            return !existingAppointments.some((appointment) => {
-                const appointmentStart = new Date(appointment.start_date);
-                const appointmentEnd = new Date(appointment.end_date);
-                return ((slotStart >= appointmentStart && slotStart < appointmentEnd) ||
-                    (appointmentStart >= slotStart && appointmentStart < slotEnd));
+            const startTimeParts = startTime.split(':').map(Number);
+            const endTimeParts = endTime.split(':').map(Number);
+            const slotStart = new Date(dayStart);
+            const slotEnd = new Date(dayStart);
+            slotStart.setHours(startTimeParts[0], startTimeParts[1]);
+            slotEnd.setHours(endTimeParts[0], endTimeParts[1]);
+            return !appointmentsTimeRanges.some(appointment => {
+                if (appointment.start === appointment.end) {
+                    return false;
+                }
+                return (slotStart.getTime() < appointment.end && slotEnd.getTime() > appointment.start);
             });
         });
-        return availableSlots;
+        return result;
     }
 };
 SchedulesService = __decorate([

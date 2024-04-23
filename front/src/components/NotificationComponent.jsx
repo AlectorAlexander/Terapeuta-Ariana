@@ -50,7 +50,6 @@ function NotificationsComponent() {
   
 
   const openNoReadNotifications = () => {
-    console.log(noReadNotifications);
     if (notifications.length) {
       noReadNotifications.forEach((ntfctn) => {
         notification.open({

@@ -172,7 +172,6 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
     setRegisterClicked(false);
     try {
       setLoading(true);
-      console.log(email, password);
       const result = await signInWithEmail(email, password);
       const body = {...result.user, password};
       let response;
