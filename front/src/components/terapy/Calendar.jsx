@@ -68,9 +68,6 @@ export function CalendarMonth({durationInMinutes, setFinalDateToPost, monthData,
     return !loading ?
       availableSchedules
         .map((schedule, index) => {
-
-          console.log({schedule});
-
           return (
             <li
               data-testid={`time-slot-${schedule}`}

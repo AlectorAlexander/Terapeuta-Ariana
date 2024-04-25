@@ -26,7 +26,7 @@ function Header() {
             <Nav.Link onClick={() => handleNavigation('/terapias')}>Terapias</Nav.Link>
             <Nav.Link onClick={() => handleNavigation('/blog')}>Blog</Nav.Link>
             <Nav.Link onClick={() => handleNavigation('/contato')}>Contato</Nav.Link>
-            <Nav.Link onClick={() => setOnHide(true)}>Login</Nav.Link>
+            <Nav.Link data-testId="login-link" onClick={() => setOnHide(true)}>Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <Navbar.Brand><Nav.Link><NotificationsComponent /></Nav.Link></Navbar.Brand>

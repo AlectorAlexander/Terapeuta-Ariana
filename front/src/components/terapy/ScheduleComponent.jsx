@@ -51,7 +51,8 @@ const ScheduleAndPayComponent = ({finalDateToPost,
         variant="primary"
         className={styles.button}
         disabled={!finalDateToPost}
-        onClick={async () => await setContinuar()}
+        data-testid={`continuar`}
+        onClick={setContinuar}
       >
         Continuar
       </Button>

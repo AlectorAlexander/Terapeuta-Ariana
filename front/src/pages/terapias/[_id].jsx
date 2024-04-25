@@ -98,32 +98,28 @@ const TerapiaDetail = () => {
     }
   }, [data, shouldFetch]);
 
-  const handleContinuar = async () => {
-    await setContinuar(true);
+  const handleContinuar = () => {
     if (!isUserValidated) {
-      setOnHide(true);
+      setOnHide(true); // Mostra modal de login ou outra forma de validação
+    } else {
+      setContinuar(true);
     }
   };
+
 
   const renderRightComponent = () => {
-    if (continuar && isUserValidated ) {
+    if (continuar && isUserValidated) {
       return <PaymenteComponente product={item} />;
-    } 
-    else if (!continuar || continuar && !isUserValidated) {
-      return (
-        <ScheduleAndPayComponent 
-          finalDateToPost={finalDateToPost} 
-          setFinalDateToPost={setFinalDateToPost} 
-          setContinuar={handleContinuar} 
-          item={item} 
-        />
-      );
+    } else {
+      return <ScheduleAndPayComponent 
+        finalDateToPost={finalDateToPost} 
+        setFinalDateToPost={setFinalDateToPost} 
+        setContinuar={handleContinuar} 
+        item={item} />;
     }
-    return null;
   };
 
-
-
+ 
 
   useEffect(() => {
     if (phoneNumber !== '') {

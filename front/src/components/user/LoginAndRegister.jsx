@@ -166,7 +166,6 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
   };
 
 
-  
 
   const handleEmailLogin = async () => {
     setRegisterClicked(false);
@@ -229,7 +228,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
     if (!registerClicked) {
       return (
         <div className='d-flex flex-wrap justify-content-around mt-3 animate__animated animate__fadeIn'>
-          <Button variant="primary" disabled={theTruth} onClick={handleEmailLogin}>
+          <Button data-testId='login-submit' variant="primary" disabled={theTruth} onClick={handleEmailLogin}>
         Login
           </Button>
 
@@ -295,7 +294,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
             </Form>
           </Modal.Body>
           <div className='d-flex flex-wrap justify-content-around mt-3'>
-            <Button variant="primary" disabled={theTruthAboutLogin} onClick={handleEmailLogin}>
+            <Button data-testId='login-submit' variant="primary" disabled={theTruthAboutLogin} onClick={handleEmailLogin}>
         Login
             </Button>
 
@@ -332,7 +331,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
     
 
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal id="loginModal" show={show} onHide={onHide}>
       <div>
         <Modal.Header closeButton>
           <Modal.Title>Login e Registro</Modal.Title>
@@ -351,7 +350,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
             {erro && <ErrorModal setError={setError} error={erro} />}
             <Form>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label className="d-flex flex-column">
+                <Form.Label data-testId='text-email' className="d-flex flex-column">
                   Email
                   {email.length > 0 ? (isValidEmail(email) ? '  ✔ ' : '  ⚠ ') : ''}
                 </Form.Label>
@@ -364,7 +363,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
               </Form.Group>
   
               <Form.Group controlId="formBasicPassword">
-                <Form.Label>
+                <Form.Label data-testId="text-pass">
                   Senha
                   {password.length > 0 ? (isValidPassword(password) ? '  ✔ ' : '  ⚠ ') : ''}
                 </Form.Label>
@@ -394,7 +393,7 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
         
   
         <Modal.Footer>
-          <Button variant="secondary" onClick={onHide}>
+          <Button data-testId='closeModal' variant="secondary" onClick={onHide}>
             Fechar
           </Button>
         </Modal.Footer>

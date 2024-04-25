@@ -10,6 +10,7 @@ import { CheckCircleOutlined } from '@ant-design/icons';
 import emailjs from '@emailjs/browser';
 import { Button } from "react-bootstrap";
 import styles from '@/styles/terapy/CheckoutForm.module.css';
+import { createRefund, getChargeIdFromPaymentIntent } from "@/pages/api/booking/delete";
 
 export function CheckoutForm({ clientSecret }) {
   const stripe = useStripe();
@@ -73,6 +74,20 @@ export function CheckoutForm({ clientSecret }) {
     });
   };
 
+  const initiateRefund = async (paymentIntentId) => {
+    try {
+      const chargeId = await getChargeIdFromPaymentIntent(paymentIntentId);
+      if (!chargeId) {throw new Error('No charge ID found for PaymentIntent');}
+  
+      await createRefund(chargeId);
+      console.log('Refund created successfully');
+    } catch (error) {
+      console.error('Error initiating refund:', error);
+      throw error; // Propagar o erro para ser tratado na camada superior
+    }
+  };
+  
+
   const handlePaymentIntentStatus = async (paymentIntent) => {
     let data;
     const price = (paymentIntent.amount / 100) || 0;
@@ -82,14 +97,19 @@ export function CheckoutForm({ clientSecret }) {
       switch (paymentIntent.status) {
         case 'succeeded':
           setMessage("Aguarde mais um pouco...");
-          await sendPaymentRequest(data).then( async ({sessionData, paymentData}) => {
+          try {
+            const { sessionData, paymentData } = await sendPaymentRequest(data);
             const emailMessage = sessionData.date;
-            sendEmailToAriana(emailMessage);
-            console.log({paymentData});
+            await sendEmailToAriana(emailMessage);
+            console.log({ paymentData });
             await updatePaymentIntent(paymentData._id, paymentIntent.id);
-          });
-          setSuccessCase(true);
-          setMessage("Sessão agendada!");
+            setSuccessCase(true);
+            setMessage("Sessão agendada!");
+          } catch (innerError) {
+            console.error('Erro durante as operações pós-pagamento:', innerError);
+            setMessage("Erro durante o processo. Iniciando reembolso...");
+            await initiateRefund(paymentIntent.id);
+          }
           break;
         case 'processing':
           setMessage("Your payment is processing.");
@@ -107,6 +127,7 @@ export function CheckoutForm({ clientSecret }) {
       setMessage("An error occurred, operation cancelled.");
     }
   };
+
   
   
 

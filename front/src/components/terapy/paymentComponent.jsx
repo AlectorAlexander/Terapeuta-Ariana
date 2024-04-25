@@ -15,28 +15,32 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
 const PaymenteComponente = (product) => {
   const { clearCart, addItem, cartDetails } = useShoppingCart();
   const [stripeProductsList, setStripeProductsList] = useState([]);
-  const [productThatIWannaSell, setTheThruth] = useState(false);
+  const [productThatIWannaSell, setTheProductIsAvailable] = useState(false);
+  const [choseAnotherNameProducs, setChoseAnotherNameProducs] = useState([]);
   const [clientSecret, setClientSecret] = useState('');
 
 
   useAuthentication();
 
+  useEffect(() => {
+    console.log({clientSecret});
+  }, [clientSecret]);
 
   useEffect(() => {
-    if (stripeProductsList.length > 0 && product.product) {
+    if (product && product.product) {
       const formattedAPIProducts = formatTheApiProductsToCompare([product.product])[0];
       addItem(formattedAPIProducts)
         .then(() => {
           // Confirma que o produto foi adicionado antes de prosseguir
           // Aqui, você validaria os itens no carrinho e criaria a intenção de pagamento
           // Se essa validação for bem-sucedida, você pode proceder para configurar a intenção de pagamento
-          setTheThruth(true); // Esta linha é um placeholder. Substitua pela sua lógica.
+          setTheProductIsAvailable(true); // Esta linha é um placeholder. Substitua pela sua lógica.
         })
         .catch(error => {
           console.error("Erro ao adicionar produto ao carrinho:", error);
         });
     }
-  }, [stripeProductsList, product.product]);
+  }, [stripeProductsList, addItem, product]);
   
 
   useEffect(() => {
@@ -62,7 +66,8 @@ const PaymenteComponente = (product) => {
           return validateCartItems(stripeProductsList, cartDetails);
         })
         .then(result => {
-          setTheThruth(result);
+          setTheProductIsAvailable(true);
+          setChoseAnotherNameProducs(result);
         })
         .catch(error => {
           console.error("Erro ao atualizar carrinho ou validar itens:", error);
@@ -72,8 +77,8 @@ const PaymenteComponente = (product) => {
   
 
   useEffect(() => {
-    if (productThatIWannaSell && productThatIWannaSell.length > 0) {
-      const { unit_amount } = productThatIWannaSell[0].price_data;
+    if (productThatIWannaSell) {
+      const { unit_amount } = choseAnotherNameProducs[0].price_data;
       axios.post('/api/create-payment-intent', {amount: unit_amount})
         .then(({ data }) => {
           setClientSecret(data.clientSecret);
@@ -82,9 +87,9 @@ const PaymenteComponente = (product) => {
           console.error("Erro ao criar sessão de pagamento:", error);
         });
     } else {
-      console.log(`We have a problem here, the product that I want to sell is: ${productThatIWannaSell} and the length is: ${productThatIWannaSell.length}`);
+      console.log(`We have a problem here, the product that I want to sell is: ${choseAnotherNameProducs} and the length is: ${choseAnotherNameProducs.length}`);
     }
-  }, [productThatIWannaSell]);
+  }, [choseAnotherNameProducs]);
 
   const appearance = {
     theme: 'night',

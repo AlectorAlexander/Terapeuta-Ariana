@@ -2,7 +2,7 @@ import stripe from '@/services/stripe';
 import axios from 'axios';
 const api_base = `http://localhost:${process.env.NEXT_PUBLIC_PORT}`;
 
-const createRefund = async (chargeId) => {
+export const createRefund = async (chargeId) => {
   try {
     const refund = await stripe.refunds.create({
       charge: chargeId,
@@ -15,7 +15,7 @@ const createRefund = async (chargeId) => {
 };
 
 
-const getChargeIdFromPaymentIntent = async (paymentIntentId) => {
+export const getChargeIdFromPaymentIntent = async (paymentIntentId) => {
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
     // Supondo que cada PaymentIntent resulte em uma única Charge
