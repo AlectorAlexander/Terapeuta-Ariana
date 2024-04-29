@@ -1,10 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-  webpack5: true,
   webpack: (config) => {
-    config.resolve.fallback = { fs: false };
-
+    config.resolve.fallback = { fs: false }; // Ajusta o fallback para 'fs' quando usado no navegador
     return config;
   },
 };
