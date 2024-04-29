@@ -16,15 +16,11 @@ const PaymenteComponente = (product) => {
   const { clearCart, addItem, cartDetails } = useShoppingCart();
   const [stripeProductsList, setStripeProductsList] = useState([]);
   const [productThatIWannaSell, setTheProductIsAvailable] = useState(false);
-  const [choseAnotherNameProducs, setChoseAnotherNameProducs] = useState([]);
+  const [validatedProducs, setValidateProducs] = useState([]);
   const [clientSecret, setClientSecret] = useState('');
 
 
   useAuthentication();
-
-  useEffect(() => {
-    console.log({clientSecret});
-  }, [clientSecret]);
 
   useEffect(() => {
     if (product && product.product) {
@@ -40,7 +36,7 @@ const PaymenteComponente = (product) => {
           console.error("Erro ao adicionar produto ao carrinho:", error);
         });
     }
-  }, [stripeProductsList, addItem, product]);
+  }, [product]);
   
 
   useEffect(() => {
@@ -67,7 +63,7 @@ const PaymenteComponente = (product) => {
         })
         .then(result => {
           setTheProductIsAvailable(true);
-          setChoseAnotherNameProducs(result);
+          setValidateProducs(result);
         })
         .catch(error => {
           console.error("Erro ao atualizar carrinho ou validar itens:", error);
@@ -78,7 +74,7 @@ const PaymenteComponente = (product) => {
 
   useEffect(() => {
     if (productThatIWannaSell) {
-      const { unit_amount } = choseAnotherNameProducs[0].price_data;
+      const { unit_amount } = validatedProducs[0].price_data;
       axios.post('/api/create-payment-intent', {amount: unit_amount})
         .then(({ data }) => {
           setClientSecret(data.clientSecret);
@@ -87,9 +83,9 @@ const PaymenteComponente = (product) => {
           console.error("Erro ao criar sessão de pagamento:", error);
         });
     } else {
-      console.log(`We have a problem here, the product that I want to sell is: ${choseAnotherNameProducs} and the length is: ${choseAnotherNameProducs.length}`);
+      console.log(`We have a problem here, the product that I want to sell is: ${validatedProducs} and the length is: ${validatedProducs.length}`);
     }
-  }, [choseAnotherNameProducs]);
+  }, [validatedProducs]);
 
   const appearance = {
     theme: 'night',
