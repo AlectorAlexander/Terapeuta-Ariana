@@ -23,6 +23,7 @@ const PaymenteComponente = (product) => {
   useAuthentication();
 
   useEffect(() => {
+    console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
     if (product && product.product) {
       const formattedAPIProducts = formatTheApiProductsToCompare([product.product])[0];
       addItem(formattedAPIProducts)
