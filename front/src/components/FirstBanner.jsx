@@ -48,20 +48,20 @@ function FirstBanner() {
           className={`animate__animated  animate__fadeInUp ${styles.typeAnimation}`}
           style={{whiteSpace: 'pre-line', fontSize: '32px', display: 'inline-block' }}
         >
-            Eu sou Ariana Castro,
+            Ariana Castro,
         </h1>}
         {showSecondAnimation && <p
           className={`animate__animated  animate__fadeInUp ${styles.typeAnimation2}`}
           style={{whiteSpace: 'pre-line', fontSize: '18px', display: 'inline-block' }}
         >
-          Uma terapeuta ThetaHealer especializada em serviços de saúde alternativos e holísticos.
+          Cartomante, terapeuta.
         </p>}
                
         {showThirdAnimation && <p
           style={{whiteSpace: 'pre-line', fontSize: '18px', display: 'inline-block' }}
           className={`animate__animated  animate__fadeInUp ${styles.typeAnimation2}`}
         >
-          Além da terapia, sou cartomante, guiando aqueles que buscam clareza em suas vidas. Objetivo em ajudar cada um a encontrar sua verdadeira essência. Creio no poder transformador do ThetaHealing, uma técnica que redefine crenças profundas. Sigo o mantra: {`"A mudança de vida começa com a transformação de crenças e pensamentos"`}.
+          Orientação espiritual e comportamental. Objetivo ajudar cada um a encontrar sua verdadeira essência. Creio no poder transformador do ThetaHealing, uma técnica que redefine crenças profundas. Sigo o mantra: {`"A mudança de vida começa com a transformação de crenças e pensamentos"`}.
         </p>}
         {<p>
                 
