@@ -61,7 +61,7 @@ function FirstBanner() {
           style={{whiteSpace: 'pre-line', fontSize: '18px', display: 'inline-block' }}
           className={`animate__animated  animate__fadeInUp ${styles.typeAnimation2}`}
         >
-          Além da terapia, sou cartomante, guiando aqueles que buscam clareza em suas vidas. Meu objetivo é ajudar cada um a encontrar sua verdadeira essência. Creio no poder transformador do ThetaHealing, uma técnica que redefine crenças profundas. Sigo o mantra: {`"A mudança de vida começa com a transformação de crenças e pensamentos"`}. Seja presencial ou online, estou aqui para ajudar a superar obstáculos e viver plenamente.
+          Além da terapia, sou cartomante, guiando aqueles que buscam clareza em suas vidas. Objetivo em ajudar cada um a encontrar sua verdadeira essência. Creio no poder transformador do ThetaHealing, uma técnica que redefine crenças profundas. Sigo o mantra: {`"A mudança de vida começa com a transformação de crenças e pensamentos"`}.
         </p>}
         {<p>
                 
