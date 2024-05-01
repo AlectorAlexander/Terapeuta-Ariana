@@ -179,6 +179,10 @@ class BookingService {
         userData: existingUser,
       } = await this.findBookingByScheduleId(scheduleId);
 
+      console.log({
+        scheduleData,
+      });
+
       const { name, email, phone } = existingUser;
 
       if (!existingSchedule) {
@@ -282,11 +286,17 @@ class BookingService {
     try {
       const schedules = await this.schedulesService.read();
       const bookings: IBookingData[] = [];
+      const currentDate = new Date(); // Obter a data atual
 
       for (const schedule of schedules) {
         // Verifica se schedule.user_id é válido
         if (!schedule.user_id || schedule.user_id === '') {
           continue;
+        }
+
+        // Verifica se a data de término do agendamento é anterior à data atual
+        if (schedule.end_date && new Date(schedule.end_date) < currentDate) {
+          continue; // Ignora agendamentos cuja data de término já passou
         }
 
         try {

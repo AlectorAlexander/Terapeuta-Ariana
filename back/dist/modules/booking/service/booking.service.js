@@ -149,6 +149,9 @@ let BookingService = class BookingService {
     async updateBooking(scheduleId, { scheduleData, sessionName }) {
         try {
             const { scheduleData: existingSchedule, paymentData: existingPayment, sessionData: existingsession, userData: existingUser, } = await this.findBookingByScheduleId(scheduleId);
+            console.log({
+                scheduleData,
+            });
             const { name, email, phone } = existingUser;
             if (!existingSchedule) {
                 throw new Error('Existing schedule not found');
@@ -220,8 +223,12 @@ let BookingService = class BookingService {
         try {
             const schedules = await this.schedulesService.read();
             const bookings = [];
+            const currentDate = new Date();
             for (const schedule of schedules) {
                 if (!schedule.user_id || schedule.user_id === '') {
+                    continue;
+                }
+                if (schedule.end_date && new Date(schedule.end_date) < currentDate) {
                     continue;
                 }
                 try {
