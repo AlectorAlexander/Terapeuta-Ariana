@@ -7,6 +7,8 @@ import { extrairDescricao, formatSlot } from '@/services/painelAdminServices';
 import Loading from '@/components/Loading';
 import styles from '@/styles/painelAdmin.module.css';
 import ArianaContext from '@/context/ArianaContext';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
+
 import { compareAsc, compareDesc } from 'date-fns';
 
 const SchedulingList = () => {
@@ -18,11 +20,15 @@ const SchedulingList = () => {
   const [scheduleChoosen, setSelectedSchedule] = useState(null);
   const [sessionName, setSessioName] = useState('');
   const [loading, setLoading] = useState(true);
-  const { isAdmin } = useContext(ArianaContext);
-
+  const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const [currentDataToDelete, setCurrentDataToDelete] = useState(null);
   const [filterClientName, setFilterClientName] = useState('');
   const [filterService, setFilterService] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+
+  const { isAdmin } = useContext(ArianaContext);
+
+
 
   const welcomeToModal = (schedule, sName) => {
     setSessioName(sName);
@@ -163,9 +169,48 @@ const SchedulingList = () => {
     fetchSchedulings(token);
   }, []);
 
+  const handleOpenConfirmModal = (payment, session, schedule) => {
+    setCurrentDataToDelete({ payment, session, schedule });
+    setOpenConfirmModal(true);
+  };
+  
+  const handleCloseConfirmModal = () => {
+    setOpenConfirmModal(false);
+  };
+
+  const confirmDelete = async () => {
+    if (!currentDataToDelete) {return;}
+  
+    const { payment, session, schedule } = currentDataToDelete;
+    await deletar(payment, session, schedule);
+    setOpenConfirmModal(false);
+  };
+  
+  
+
 
   return isAdmin ? (
     <div className='d-flex justify-content-center align-items-center w-100 flex-column mt-5'>
+      <Dialog
+        open={openConfirmModal}
+        onClose={handleCloseConfirmModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Confirmar ação"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+      Tem certeza de que deseja cancelar e reembolsar este agendamento?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirmModal}>Cancelar</Button>
+          <Button onClick={confirmDelete} autoFocus>
+      Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <div className='d-flex'>
         <TextField
           className='m-3 w-100'
@@ -209,7 +254,8 @@ const SchedulingList = () => {
                   <TableCell>{payment && payment.price ? payment.price : "Sem informações"}</TableCell>
                   <TableCell>
                     <Button className={styles.buttons} onClick={() => welcomeToModal(scheduling, extrairDescricao(sessions[i].date))}>Reagendar</Button>
-                    <Button variant='danger' className={styles.buttons} onClick={() => deletar(payments[i], sessions[i], scheduling)}>Cancelar e Reembolsar</Button>
+                    <Button variant='danger' className={styles.buttons} onClick={() => handleOpenConfirmModal(payments[i], sessions[i], scheduling)}>Cancelar e Reembolsar</Button>
+
                   </TableCell>
                 </TableRow>
               ))}
