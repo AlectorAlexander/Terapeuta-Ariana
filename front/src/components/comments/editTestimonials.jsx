@@ -5,6 +5,8 @@ import { Modal, Button, Form } from 'react-bootstrap';
 const EditTestimonials = ({ show, onHide, nomeProp, textoProp, isToEdition, setIsToEdition }) => {
   const [nome, setNome] = useState(nomeProp || '');
   const [texto, setTexto] = useState(textoProp || '');
+  const [nomeErro, setNomeErro] = useState('');
+  const [textoErro, setTextoErro] = useState('');
 
   useEffect(() => {
     setNome(nomeProp || '');
@@ -15,10 +17,10 @@ const EditTestimonials = ({ show, onHide, nomeProp, textoProp, isToEdition, setI
     try {
       if (isToEdition.bool) {
         await axios.put('/api/comments/editTestimonial', { index: isToEdition.index, updatedTestimonial: { name: nome, testimonial: texto } });
-        setIsToEdition({bool: false, index: null});
+        setIsToEdition({ bool: false, index: null });
         onHide();
       } else {
-        await axios.post('/api/comments/createTestimonial', {newTestimonial: { name: nome, testimonial: texto }});
+        await axios.post('/api/comments/createTestimonial', { newTestimonial: { name: nome, testimonial: texto } });
         onHide();
       }
     } catch (error) {
@@ -26,11 +28,32 @@ const EditTestimonials = ({ show, onHide, nomeProp, textoProp, isToEdition, setI
       throw error;
     }
   };
-  
+
+  const handleNomeChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 16) {
+      setNome(value);
+      setNomeErro('');
+    } else {
+      setNomeErro('O nome não pode ter mais que 16 caracteres');
+    }
+  };
+
+  const handleTextoChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 141) {
+      setTexto(value);
+      setTextoErro('');
+    } else {
+      setTextoErro('O texto não pode ter mais que 141 caracteres');
+    }
+  };
 
   const handleSubmit = () => {
-    onSubmit();
-    onHide();
+    if (!nomeErro && !textoErro) {
+      onSubmit();
+      onHide();
+    }
   };
 
   return (
@@ -46,8 +69,12 @@ const EditTestimonials = ({ show, onHide, nomeProp, textoProp, isToEdition, setI
               type="text"
               placeholder="Digite o nome"
               value={nome}
-              onChange={(e) => setNome(e.target.value)}
+              onChange={handleNomeChange}
+              isInvalid={!!nomeErro}
             />
+            <Form.Control.Feedback type="invalid">
+              {nomeErro}
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="texto">
             <Form.Label>Texto</Form.Label>
@@ -56,8 +83,12 @@ const EditTestimonials = ({ show, onHide, nomeProp, textoProp, isToEdition, setI
               rows={3}
               placeholder="Digite o texto"
               value={texto}
-              onChange={(e) => setTexto(e.target.value)}
+              onChange={handleTextoChange}
+              isInvalid={!!textoErro}
             />
+            <Form.Control.Feedback type="invalid">
+              {textoErro}
+            </Form.Control.Feedback>
           </Form.Group>
         </Form>
       </Modal.Body>

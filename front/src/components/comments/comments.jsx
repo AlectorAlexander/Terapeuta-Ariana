@@ -15,6 +15,7 @@ export default function Testimonials() {
   const [testimonials, setTestimonials] = useState([]);
   const [show, setOnhide] = useState(false);
   const [nomeProp, setNomeProp] = useState('');
+  const [somethingToChangeThePageRender, setsomethingToChangeThePageRender] = useState(0);
   const [textoProp, setTextoProp] = useState('');
   const [isToEdition, setIsToEdition] = useState({bool: false, index: null});
   useAuthentication();
@@ -22,9 +23,13 @@ export default function Testimonials() {
   const onEdit = (nome, texto, index) => {
     setNomeProp(nome);
     setTextoProp(texto);
-    setIsToEdition({bool: index ? true : false , index});
+    setIsToEdition({bool: !isNaN(index) ? true : false , index});
     setOnhide(!show);
   };
+
+  useEffect(() => {
+    setsomethingToChangeThePageRender(somethingToChangeThePageRender + 1);
+  }, [show]);
 
   const onHide = () => {
     setOnhide(false);
@@ -50,11 +55,14 @@ export default function Testimonials() {
   };
 
   useEffect(() => {
+    if (testimonials.length <= 1) {
+      return;
+    }
     const intervalId = setInterval(carouseldLogic, 6000);
     return () => {
       clearInterval(intervalId);
     };
-  }, [currentIndex]
+  }, [currentIndex, testimonials]
   );
 
 
@@ -66,7 +74,7 @@ export default function Testimonials() {
       .catch(error => {
         console.error('Error fetching testimonials:', error);
       });
-  }, []);
+  }, [somethingToChangeThePageRender]);
   
 
   return (
@@ -85,12 +93,6 @@ export default function Testimonials() {
             <div className={styles.testimonial}>
               <h1>"{comment.testimonial}"</h1>
               <p>-{comment.name}</p>
-              {isAdmin && (
-                <div className={`d-flex justify-content-center mb-3 ${styles.add}`}>
-                  <EditOutlined  onClick={() => onEdit(comment.name, comment.testimonial, index)} className={` mx-1 ${styles.icon}`} />
-                  <DeleteOutlined  onClick={() => removeTestimonial( index )} className={` mx-1 ${styles.icon}`} />
-                </div>
-              )}
             </div>
           </Carousel.Item>
         ))}
@@ -99,6 +101,8 @@ export default function Testimonials() {
       {isAdmin && (
         <div className={styles.add}>
           <PlusOutlined onClick={() => onEdit("", "")}  className={styles.icon} />
+          <EditOutlined  onClick={() => onEdit(testimonials[currentIndex].name, testimonials[currentIndex].testimonial, currentIndex)} className={` mx-1 ${styles.icon}`} />
+          <DeleteOutlined  onClick={() => removeTestimonial( currentIndex )} className={` mx-1 ${styles.icon}`} />
         </div>
       )}
       <EditTestimonials show={show} onHide={onHide} nomeProp={nomeProp} textoProp={textoProp} isToEdition={isToEdition} setIsToEdition={setIsToEdition} />

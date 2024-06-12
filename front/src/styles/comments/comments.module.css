@@ -1,5 +1,6 @@
 .comments {
-    height: 100vh;
+    height: 100vh !important;
+    max-height: 100vh !important;
     display: flex;
     background: linear-gradient(-80deg, #20180e, #372d25, #0d0c0d, #0d0c0d, #36383a);
     justify-content: center;
@@ -12,6 +13,9 @@
 .add svg {
     color: white;
     border: 1px solid white;
+    z-index: 32 !important;
+    display: flex;
+    justify-content: center !important;
 }
 
 .carousel {
@@ -28,7 +32,7 @@
     flex-direction: column;
     word-wrap: break-word;
     max-width: 400px;
-    height: 300px;
+    height: 400px !important;
     align-items: center;
 }
 
@@ -41,4 +45,8 @@
     text-align:right;
     font-weight: 900;
     font-size: 17px;
+}
+
+.icon {
+    z-index: 999 !important;
 }
