@@ -25,10 +25,10 @@ function CardsTextBlogs({ text }) {
           variant="top"
           src={image}
         />
-        <h3 style={{overflow: "hidden", textAlign: "center" ,  textOverflow: "ellipsis", maxWidth: "260px", maxHeight: "60px"}}>{title}</h3>
+        <h4 style={{overflow: "hidden", textAlign: "center" ,  textOverflow: "ellipsis", maxWidth: "260px", maxHeight: "88px"}}>{title}</h4>
         <ListGroup variant="flush">
           <ListGroup.Item className={styles.ListGroupItem} >  
-            <div style={{overflow: "hidden", fontSize: '16px',  textOverflow: "ellipsis", maxWidth: "220px", maxHeight: "250px"}} dangerouslySetInnerHTML={{ __html: content }} /> 
+            <div style={{overflow: "hidden",  textOverflow: "ellipsis", maxWidth: "220px", maxHeight: "250px"}} dangerouslySetInnerHTML={{ __html: content }} /> 
           </ListGroup.Item> {/* Usar formattedPrice aqui */}
         </ListGroup>
         <Button

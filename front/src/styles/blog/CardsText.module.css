@@ -5,6 +5,10 @@
     margin: 20px
 }
 
+.ListGroupItem p span {
+    font-size: 14px !important ;
+}
+
 .CardBody {
     display: flex;
     justify-content: space-between;
