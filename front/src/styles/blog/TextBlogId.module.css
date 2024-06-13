@@ -5,6 +5,11 @@
     margin-top: 70px;
 }
 
+.content {
+    font-size: inherit !important; 
+    line-height: inherit !important;
+  }
+  
 .container {
     max-width: 860px;
      display: flex; 

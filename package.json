@@ -18,6 +18,8 @@
     "lint:back": "cd back && npm run lint",
     "lint": "npm run lint:back && npm run lint:front"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "draftjs-to-html": "^0.9.1"
+  }
 }
-

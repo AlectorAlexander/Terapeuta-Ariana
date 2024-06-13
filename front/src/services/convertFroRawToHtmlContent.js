@@ -1,10 +1,9 @@
-import { convertFromRaw } from 'draft-js';
-import { stateToHTML } from 'draft-js-export-html';
+import draftToHtml from 'draftjs-to-html';
 
-export default function convertFromRawToHtmlContent (response) {
+export default function convertFromRawToHtmlContent(response) {
   if (response.content) {
-    const contentState = convertFromRaw(JSON.parse(response.content));
-    const htmlContent = stateToHTML(contentState);
+    const rawContentState = JSON.parse(response.content);
+    const htmlContent = draftToHtml(rawContentState);
     return {
       title: response.title,
       content: htmlContent,
@@ -12,8 +11,8 @@ export default function convertFromRawToHtmlContent (response) {
       _id: response._id,
     };
   } else {
-    const contentState = convertFromRaw(JSON.parse(response.description));
-    const htmlContent = stateToHTML(contentState);
+    const rawContentState = JSON.parse(response.description);
+    const htmlContent = draftToHtml(rawContentState);
     return {
       title: response.title,
       description: htmlContent,
