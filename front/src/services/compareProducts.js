@@ -9,7 +9,6 @@ const getProductsNotInSecondList = (param1, param2) => {
     return !matchingAPIProduct;
   });
 };
-
 /* STRIPE NÃO PERMITE ATUALIZAÇÃO DE PREÇOS */
 /* export const updateStripeProductPrice = async (updates) => {
   const updatePromises = updates.map(async ({ stripeProduct, apiProduct }) => {
@@ -42,7 +41,6 @@ const getProductsNotInSecondList = (param1, param2) => {
   await Promise.all(updatePromises);
 }; */
 
-
 export const updateStripeDescriptionProducts = async (updates) => {
   const updatePromises = updates.map(async ({ stripeProduct, apiProduct }) => {
     try {
@@ -73,7 +71,6 @@ export const updateStripeProductName = async (updates) => {
   await Promise.all(updatePromises);
 };
 
-
 const updateApiProductStripeId = async (productId, stripeId) => {
   const data = {
     data: {
@@ -94,14 +91,9 @@ export const getUpdatedProducts = async (stripeProducts, apiProducts) => {
   const descriptionUpdates = [];
   const stripeIdUpdates = [];
 
-
   stripeProducts.forEach(stripeProduct => {
     const apiProduct = apiProducts.find(product => product.id === stripeProduct.id);
     if (apiProduct) {
-      /* STRIPE NÃO PERMITE ATUALIZAÇÃO DE PREÇOS */
-      /* if (apiProduct.default_price !== stripeProduct.default_price.unit_amount / 100) {
-        priceUpdates.push({ stripeProduct, apiProduct });
-      } */
       const normalizeString = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
       const apiProductName = normalizeString(apiProduct.name);
@@ -118,28 +110,28 @@ export const getUpdatedProducts = async (stripeProducts, apiProducts) => {
       }
     }
   });
-  /* STRIPE NÃO PERMITE ATUALIZAÇÃO DE PREÇOS */
-  /* await updateStripeProductPrice(priceUpdates); */
+
   await updateStripeProductName(namesUpdate);
   await updateStripeDescriptionProducts(descriptionUpdates);
 
-  // Atualizando stripe_id para os produtos que precisam
   for (const { stripeProduct, apiProduct } of stripeIdUpdates) {
     await updateApiProductStripeId(apiProduct._id, stripeProduct.id);
     console.log(`Stripe ID for product ${apiProduct.name} updated.`);
   }
 };
 
-
-
 const deleteDiferentsStripeProducts = async (excessProducts) => {
-  for (let product of excessProducts) {
-    try {
-      await stripe.products.update(product.id, { active: false });
-      console.log(`Product ${product.name} deleted.`);
-    } catch (error) {
-      console.error(`Error deleting product ${product.name}:`, error);
+  if (process.env.NODE_ENV === 'production') {
+    for (let product of excessProducts) {
+      try {
+        await stripe.products.update(product.id, { active: false });
+        console.log(`Product ${product.name} deleted.`);
+      } catch (error) {
+        console.error(`Error deleting product ${product.name}:`, error);
+      }
     }
+  } else {
+    console.log(`Skipping product deletion in non-production environment.`);
   }
 };
 
@@ -173,7 +165,7 @@ export const formatTheApiProductsToPayment = (products) => {
     const id = p.stripe_id;
     const { price } = p;
     return {
-      price_data: { currency: "brl", unit_amount: price * 100, product_data: {...p, id} },
+      price_data: { currency: "brl", unit_amount: price * 100, product_data: { ...p, id } },
       quantity: 1
     };
   });
@@ -209,7 +201,6 @@ export const formatTheApiProductsToCreate = (p) => {
 
 export default async function syncAPIProductsWithStripe(stripeProducts, APIProducts) {
   const formattedAPIProducts = formatTheApiProductsToCompare(APIProducts);
-
 
   if (stripeProducts.length < formattedAPIProducts.length) {
     const excess = getProductsNotInSecondList(formattedAPIProducts, stripeProducts);

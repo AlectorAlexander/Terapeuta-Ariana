@@ -67,7 +67,6 @@ let UsersController = class UsersController {
     async update(req, userUpdates) {
         try {
             const userId = req.user.id;
-            console.log(userId);
             const updatedUser = await this.usersService.update(userId, userUpdates);
             if (!updatedUser) {
                 throw new common_1.NotFoundException('User not found');

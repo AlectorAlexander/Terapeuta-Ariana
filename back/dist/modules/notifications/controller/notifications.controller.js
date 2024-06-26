@@ -67,7 +67,6 @@ let NotificationController = class NotificationController {
         }
     }
     async update(id, notificationUpdates) {
-        console.log(id);
         try {
             const updatedNotification = await this.notificationService.update(id, notificationUpdates);
             if (!updatedNotification) {

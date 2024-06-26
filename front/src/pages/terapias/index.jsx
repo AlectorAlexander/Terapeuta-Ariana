@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import ArianaContext from "@/context/ArianaContext";
 import useAuthentication from "@/hooks/useAuthentication";
 
-
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
 function Terapias() {
@@ -18,19 +17,17 @@ function Terapias() {
   const { data, error } = useSWR('/api/products', fetcher);
   const router = useRouter();
   useAuthentication();
- 
+
   const images = [
-    '/bannerTerapias1.png', 
-    '/bannerTerapias2.png', 
-    '/bannerTerapias3.png', 
+    '/bannerTerapias1.png',
+    '/bannerTerapias2.png',
+    '/bannerTerapias3.png',
     '/bannerTerapias4.png'
   ];
 
   const moveToEditionPage = () => {
     router.push('/terapias/edit-terapia');
-  };  
-
-
+  };
 
   const renderToAdmin = () => {
     return (
@@ -42,10 +39,10 @@ function Terapias() {
 
   return (
     <div>
-      <CarouselComponent 
-        titleh1="Terapias" 
-        textp="Agende sua terapia agora mesmo" 
-        images={images} 
+      <CarouselComponent
+        titleh1="Terapias"
+        textp="Agende sua terapia agora mesmo"
+        images={images}
       />
       <div className={styles.terapiasContainer}>
         {error ? (

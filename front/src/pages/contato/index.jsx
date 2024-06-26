@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
 import styles from '../../styles/Contato.module.scss';
 import CarouselComponent from '@/components/CarouselBanner';
