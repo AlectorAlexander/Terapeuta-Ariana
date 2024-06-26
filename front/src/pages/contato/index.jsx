@@ -46,15 +46,6 @@ const Contato = () => {
   }; 
 
 
-  useEffect(() => {
-    console.log({
-      serviceId ,
-      templateId ,
-      publicKey
-    });
-  }, []);
-
-
   const emailValidation = email.includes('@') && email.includes('.');
   const buttonValidation = nome !==  '' && emailValidation && assunto !== '' && mensagem !== '';
 

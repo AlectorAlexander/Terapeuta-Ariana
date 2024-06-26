@@ -66,8 +66,6 @@ export class UsersController {
   ): Promise<IUser> {
     try {
       const userId = req.user.id;
-      console.log(userId);
-
       const updatedUser = await this.usersService.update(userId, userUpdates);
       if (!updatedUser) {
         throw new NotFoundException('User not found');

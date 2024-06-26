@@ -6,8 +6,6 @@ export default async function updatePayment(req, res) {
   try {
     const authHeader = req.headers.authorization;
     const {id, data} = req.body;
-    
-    console.log(id);
     const response = await axios.put(`${api_base}/payment/${id}`, data,
       {
         headers: {

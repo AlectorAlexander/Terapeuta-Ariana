@@ -45,7 +45,6 @@ export class BookingController {
           details: 'Booking creation returned null',
         });
       }
-      console.log({ booking });
 
       return booking;
     } catch (error) {

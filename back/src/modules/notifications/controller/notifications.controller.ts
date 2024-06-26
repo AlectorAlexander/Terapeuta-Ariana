@@ -81,7 +81,6 @@ export class NotificationController {
     @Param('id') id: string,
     @Body() notificationUpdates: INotifications,
   ): Promise<INotifications> {
-    console.log(id);
     try {
       const updatedNotification = await this.notificationService.update(
         id,

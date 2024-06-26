@@ -40,7 +40,6 @@ const PaymenteComponente = (product) => {
   
 
   useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
     if (stripeProductsList.length === 0) {
       stripe.products.list({
         expand: ['data.default_price'],

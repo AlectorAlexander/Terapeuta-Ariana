@@ -262,10 +262,6 @@ class SchedulesService implements IService<ISchedules> {
       const existingSchedule = await this._schedule.readOne(id);
       if (!existingSchedule)
         throw new BadRequestException('Schedule not found');
-
-
-      console.log({el1: data.start_date, el2: existingSchedule.start_date});
-      
       
       const isStartDateChanged = !data.start_date ? false : existingSchedule.start_date.toString() !== data.start_date.toString();
       const isEndDateChanged = !data.end_date ? false : existingSchedule.end_date.toString() !== data.end_date.toString();

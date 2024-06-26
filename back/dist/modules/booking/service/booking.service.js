@@ -89,7 +89,6 @@ let BookingService = class BookingService {
                     price: paymentData.price,
                 };
                 const session = await this.sessionService.create(sessionBody);
-                console.log({ session });
                 booking.sessionData = session;
                 const eventData = {
                     summary: `Sessão de ${data.sessionName}`,

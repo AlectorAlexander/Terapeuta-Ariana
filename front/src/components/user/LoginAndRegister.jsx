@@ -149,11 +149,9 @@ function LoginAndRegister({onHide, show, setPhoneNumberProps}) {
   };
 
   const completeGoogleSignIn = async (userData) => {
-    console.log({ userData });
     try {
       setLoading(true);
       const response = await axios.post('/api/users/loginWithGoogle', userData);
-      console.log({ response });
       localStorage.setItem('authToken', response.data);
       setToken(response.data);
     } catch (error) {

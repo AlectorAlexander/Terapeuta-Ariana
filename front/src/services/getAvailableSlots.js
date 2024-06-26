@@ -88,7 +88,6 @@ export const showTheChoosenDate = async (durationInMinutes, chosenDate) => {
   const startDate = { start_date: chosenDate };
   try {
     const response = await axios.post('/api/schedules/findByDate', startDate);
-    console.log(response);
     const getAvailableSchedules = getAvailableSlots(response.data, durationInMinutes);
     const filterAvailableSlots = await filterSlots(chosenDate, getAvailableSchedules);
     return filterAvailableSlots;
