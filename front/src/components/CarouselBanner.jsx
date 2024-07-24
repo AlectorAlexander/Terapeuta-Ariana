@@ -60,7 +60,7 @@ function CarouselComponent({images, titleh1, textp}) {
                 width={700}
                 height={200}
                 layout="responsive"
-                src={image}
+                src={image} 
                 alt="carousel-banner"
               />
             </Carousel.Item>

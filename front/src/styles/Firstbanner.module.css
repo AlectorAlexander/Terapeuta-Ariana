@@ -52,6 +52,11 @@
     .typeAnimation2 {
       font-family: 'Cormorant', serif;
     }
+
+    .typeAnimation2 span {
+      font-family: 'Cormorant', serif;
+      font-weight: 900;
+    }
     
 @media screen and  (max-width: 1013px) {
       

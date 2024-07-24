@@ -61,13 +61,16 @@ function FirstBanner() {
           className={`animate__animated animate__fadeInUp ${styles.typeAnimation2}`}
           style={{whiteSpace: 'pre-line', fontSize: '18px', display: 'inline-block' }}
         >
-          Cartomante, terapeuta.
+          Hipnoterapeuta especialista em Neurociências, Terapeuta Holística Espiritualista, e Cartomante.
         </p>}
         {showThirdAnimation && <p
           style={{whiteSpace: 'pre-line', fontSize: '18px', display: 'inline-block' }}
           className={`animate__animated animate__fadeInUp ${styles.typeAnimation2}`}
         >
-          Orientação espiritual e comportamental. Objetivo ajudar cada um a encontrar sua verdadeira essência. Creio no poder transformador do ThetaHealing, uma técnica que redefine crenças profundas. Sigo o mantra: {"A mudança de vida começa com a transformação de crenças e pensamentos"}.
+         O meu objetivo como terapeuta é proporcionar para você uma mudança de mentalidade através de técnicas eficazes que atuam em nível mental, emocional, espiritual e energético.
+          Com a minha abordagem, em poucas sessões você estará livre de traumas emocionais que te condicionam a viver ciclos repetitivos, e estará preparado para florescer em todas as áreas da sua vida.
+
+          Você merece uma vida<span> EXTRAORDINÁRIA</span>!
         </p>}
       </div>
     </div>

@@ -25,8 +25,8 @@ function TerapiasHome() {
     <div className={styles.theRealBiggestContainer}>
       <div className={styles.biggestContainer}>
         <div className={styles.letterContainer} style={{fontWeight: '900'}}>
-          <h1 style={{}}>Agende sua consulta ou terapia</h1> 
-          <p style={{fontSize: '18px', }}>Escolha a melhor data e horário para seu atendimento e pague online via cartão de crédito, transferência bancária ou PIX.</p>
+          <h1 style={{}}>Agende o seu atendimento</h1> 
+          <p style={{fontSize: '18px', }}>Escolha a melhor data e horário para o seu atendimento e pague online com o cartão de crédito ou PIX.</p>
         </div>
         <div className={`${styles.terapiasContainer}`}>
           {error ? (
