@@ -104,28 +104,49 @@ let UsersController = class UsersController {
     }
     async googleLogin(googleData) {
         try {
+            console.log('-------------------');
+            console.log('[BACK] ROTA: /users/google-login');
+            console.log('[BACK] Payload recebido:', googleData);
+            if (!googleData.email || !googleData.google_id || !googleData.name) {
+                console.warn('[BACK] Dados incompletos para login com Google.');
+            }
             const token = await this.usersService.googleLogin(googleData);
+            if (!token || typeof token !== 'string') {
+                console.error('[BACK] Token não gerado ou inválido:', token);
+            }
+            else {
+                const tokenPreview = token.slice(0, 20) + '...' + token.slice(-10);
+                console.log('[BACK] Token JWT gerado:', tokenPreview);
+            }
+            console.log('[BACK] Retornando token ao frontend.');
+            console.log('-------------------');
             return token;
         }
         catch (error) {
+            console.error('[BACK] Erro no login com Google:', error.message || error);
             throw new common_1.BadRequestException({ message: error.message });
         }
     }
     async validateToken(token) {
         try {
+            console.log('[BACK] Token recebido para validação:', token);
             const isValid = await this.usersService.validate(token);
+            console.log('[BACK] Resultado da validação:', isValid);
             return isValid;
         }
         catch (error) {
+            console.error('[BACK] Erro na validação de token:', error);
             throw new common_1.BadRequestException('Invalid token');
         }
     }
     async validateNumber(data) {
         try {
+            console.log('[BACK] Verificando número com dados:', data);
             const isValid = await this.usersService.doesUserHavePhoneNumberINTERROGATION(data);
             return isValid;
         }
         catch (error) {
+            console.error('[BACK] Erro ao validar número:', error);
             throw new common_1.BadRequestException('Invalid something');
         }
     }

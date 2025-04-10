@@ -10,6 +10,8 @@ exports.LoggerMiddleware = void 0;
 const common_1 = require("@nestjs/common");
 let LoggerMiddleware = class LoggerMiddleware {
     use(req, res, next) {
+        const token = req.headers['authorization'];
+        console.log('[MIDDLEWARE] Token no header Authorization:', token);
         next();
     }
 };

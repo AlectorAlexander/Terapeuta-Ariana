@@ -7,6 +7,7 @@ import UserModel from '../entities/users.entity';
 import { SafeParseError } from 'zod';
 import { BadRequestException, ConflictException } from '@nestjs/common';
 import { validateToken } from 'src/modules/interfaces/interfaces';
+import { log } from 'node:console';
 
 export enum ErrorTypes {
   EntityNotFound = 'EntityNotFound',
@@ -205,20 +206,44 @@ class UsersService implements IService<IUser> {
   }): Promise<boolean> {
     try {
       const existingUser = await this._user.readOneByEmail(data.email);
+
       if (existingUser) {
-        if (existingUser.google_id !== data.google_id) {
-          // O front depende da seguinte mensagem de erro pra trata-lo corretamente.
-          throw new Error('Email already registered without Google.');
-        } else if (existingUser.phone) {
-          return true;
-        } else {
-          return false;
+        const userHasGoogleId = !!existingUser.google_id;
+        const incomingGoogleId = data.google_id;
+
+        // Caso 1: usuário existe, mas ainda não tem google_id → atualiza
+        if (!userHasGoogleId && incomingGoogleId) {
+          console.log(
+            '[SERVICE] Usuário com email encontrado, mas sem google_id. Atualizando...',
+          );
+
+          await this._user.update(existingUser._id, {
+            google_id: incomingGoogleId,
+          });
+
+          // Você pode salvar e já retornar true/false de acordo com o telefone
+          return !!existingUser.phone;
         }
+
+        // Caso 2: usuário tem google_id mas ele é diferente → erro
+        if (userHasGoogleId && existingUser.google_id !== incomingGoogleId) {
+          console.log('id já existente:', existingUser.google_id);
+          console.log('id não existente:', incomingGoogleId);
+
+          // O front depende dessa mensagem específica
+          throw new Error('Email already registered without Google.');
+        }
+
+        // Caso 3: tudo ok → retorna se tem telefone
+        return !!existingUser.phone;
       } else {
         return false;
       }
     } catch (error) {
-      console.error(error);
+      console.error(
+        '[SERVICE] Erro em doesUserHavePhoneNumberINTERROGATION:',
+        error,
+      );
       throw error;
     }
   }
@@ -235,7 +260,9 @@ class UsersService implements IService<IUser> {
       if (existingUser) {
         if (existingUser.google_id !== data.google_id) {
           // O front depende da seguinte mensagem de erro pra trata-lo corretamente.
-          throw new Error('Email already registered without Google.');
+          const err = new Error('Email already registered without Google.');
+          err.name = 'GoogleAuthEmailMismatch';
+          throw err;
         }
         return sign(
           { id: existingUser._id, role: existingUser.role },

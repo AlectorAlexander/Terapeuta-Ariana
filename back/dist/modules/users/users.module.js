@@ -10,7 +10,11 @@ exports.UsersModule = void 0;
 const common_1 = require("@nestjs/common");
 const users_controller_1 = require("./controller/users.controller");
 const users_service_1 = require("./service/users.service");
+const jwt_middleware_consume_1 = require("./service/jwt-middleware-consume");
 let UsersModule = class UsersModule {
+    configure(consumer) {
+        consumer.apply(jwt_middleware_consume_1.LoggerMiddleware).forRoutes('*');
+    }
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([

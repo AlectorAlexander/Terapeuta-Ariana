@@ -184,22 +184,28 @@ class UsersService {
         try {
             const existingUser = await this._user.readOneByEmail(data.email);
             if (existingUser) {
-                if (existingUser.google_id !== data.google_id) {
+                const userHasGoogleId = !!existingUser.google_id;
+                const incomingGoogleId = data.google_id;
+                if (!userHasGoogleId && incomingGoogleId) {
+                    console.log('[SERVICE] Usuário com email encontrado, mas sem google_id. Atualizando...');
+                    await this._user.update(existingUser._id, {
+                        google_id: incomingGoogleId,
+                    });
+                    return !!existingUser.phone;
+                }
+                if (userHasGoogleId && existingUser.google_id !== incomingGoogleId) {
+                    console.log('id já existente:', existingUser.google_id);
+                    console.log('id não existente:', incomingGoogleId);
                     throw new Error('Email already registered without Google.');
                 }
-                else if (existingUser.phone) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return !!existingUser.phone;
             }
             else {
                 return false;
             }
         }
         catch (error) {
-            console.error(error);
+            console.error('[SERVICE] Erro em doesUserHavePhoneNumberINTERROGATION:', error);
             throw error;
         }
     }
@@ -208,7 +214,9 @@ class UsersService {
             const existingUser = await this._user.readOneByEmail(data.email);
             if (existingUser) {
                 if (existingUser.google_id !== data.google_id) {
-                    throw new Error('Email already registered without Google.');
+                    const err = new Error('Email already registered without Google.');
+                    err.name = 'GoogleAuthEmailMismatch';
+                    throw err;
                 }
                 return (0, jsonwebtoken_1.sign)({ id: existingUser._id, role: existingUser.role }, JWT_SECRET, jwtConfig);
             }

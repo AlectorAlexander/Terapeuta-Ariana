@@ -13,7 +13,10 @@ exports.JwtStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_jwt_1 = require("passport-jwt");
-const { JWT_SECRET } = process.env;
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET está undefined. Verifique seu .env.');
+}
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor() {
         super({
@@ -21,7 +24,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
             ignoreExpiration: false,
             secretOrKey: JWT_SECRET,
         });
-        console.log('JwtStrategy initialized with secret:', 'JWT_SECRET');
+        console.log('JwtStrategy initialized with secret:', JWT_SECRET);
     }
     async validate(payload) {
         return { id: payload.id, role: payload.role };
