@@ -3,45 +3,67 @@ import ArianaContext from '@/context/ArianaContext';
 import validateToken from '@/services/validateToken';
 
 const useAuthentication = () => {
-  const { setIsUserValidated, setIsAdmin, setClientName, setToken, isUserValidated, token, clientName, isAdmin } = useContext(ArianaContext);
+  const {
+    setIsUserValidated,
+    setIsAdmin,
+    setClientName,
+    setToken,
+    isUserValidated,
+    token,
+    clientName,
+    isAdmin,
+  } = useContext(ArianaContext);
 
   useEffect(() => {
+    
     const authenticateUser = async () => {
-      try {
-        const storedToken = localStorage.getItem('authToken');
-        // Se não houver token, não prossegue com a validação
-        if (!storedToken) {
-          setIsUserValidated(false);
-          return;
-        }
+      const storedToken = localStorage.getItem('authToken');
+      console.log('[FRONT] Token armazenado no localStorage:', storedToken); // << LOG
 
+      if (!storedToken) {
+        console.log('[FRONT] Nenhum token encontrado. Usuário não autenticado.'); // << LOG
+        setIsUserValidated(false);
+        return;
+      }
+
+      try {
         const validationResult = await validateToken(storedToken);
+        console.log('[FRONT] Resultado da validação do token:', validationResult); // << LOG
 
         if (validationResult.isValid) {
-          localStorage.setItem('authToken', storedToken); // Garante que o token esteja sempre atualizado
+          localStorage.setItem('authToken', storedToken);
           setToken(storedToken);
           setIsUserValidated(true);
           setClientName(validationResult.user.name);
           setIsAdmin(validationResult.user.isAdmin);
+          console.log('[FRONT] Usuário autenticado com sucesso.'); // << LOG
         } else {
-          // Se o token for inválido, limpa o localStorage e os estados
           localStorage.removeItem('authToken');
           setIsUserValidated(false);
           setToken('');
+          console.log('[FRONT] Token inválido. Sessão encerrada.'); // << LOG
         }
       } catch (error) {
-        console.error('Erro na autenticação do usuário:', error);
+        console.error('[FRONT] Erro na autenticação do usuário:', error); // << LOG
         localStorage.removeItem('authToken');
         setIsUserValidated(false);
         setToken('');
       }
     };
 
-    // Verifica se o usuário já está validado antes de fazer uma nova chamada à API
     if (!isUserValidated) {
       authenticateUser();
     }
-  }, [isUserValidated, setIsUserValidated, setIsAdmin, setClientName, setToken, token, clientName, isAdmin]);
+  }, [
+    isUserValidated,
+    setIsUserValidated,
+    setIsAdmin,
+    setClientName,
+    setToken,
+    token,
+    clientName,
+    isAdmin,
+  ]);
 };
 
 export default useAuthentication;

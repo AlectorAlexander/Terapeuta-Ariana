@@ -21,6 +21,8 @@ export function sendResetEmail(email) {
 export function signInWithGoogle() {
   return signInWithPopup(auth, googleProvider)
     .then(result => {
+
+      
       console.log("Usuário logado via Google:", result.user);
       return result;
     })
