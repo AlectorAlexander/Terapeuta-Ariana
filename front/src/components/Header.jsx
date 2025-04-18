@@ -17,8 +17,8 @@ function Header() {
   };
 
   return (
-    <Navbar className="header mt-0 animate__animated  animate__flipInX" expand="lg">
-      <Navbar.Brand><Nav.Link onClick={() => handleNavigation('/')}>Início</Nav.Link></Navbar.Brand>
+    <Navbar className="header pe-4 ps-4 mt-0 animate__animated  animate__flipInX" expand="lg">
+      <Navbar.Brand className='ms-5'><Nav.Link onClick={() => handleNavigation('/')}>Início</Nav.Link></Navbar.Brand>
       <div className='reverta'> 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end mx-5">
@@ -29,7 +29,7 @@ function Header() {
             <Nav.Link data-testId="login-link" onClick={() => setOnHide(true)}>Login</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        <Navbar.Brand><Nav.Link><NotificationsComponent /></Nav.Link></Navbar.Brand>
+        <Navbar.Brand className='me-5'><Nav.Link><NotificationsComponent /></Nav.Link></Navbar.Brand>
       </div>
 
       <LoginAndRegister show={show} onHide={onHide} />
